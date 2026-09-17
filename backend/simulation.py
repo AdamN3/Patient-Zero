@@ -1,18 +1,28 @@
 import re
+from functools import lru_cache
 
 import boto3
-import streamlit as st
 
 from reference_loader import load_references
 
 
 MODEL_ID = "us.anthropic.claude-sonnet-4-6"
 
+GUARDRAIL_ID = "k79urzsuvv3m"
+GUARDRAIL_VERSION = "1"
+
+PATIENT_VARIANTS = {
+    "Patient A (54, male)": "54-year-old male store manager",
+    "Patient B (54, female)": "54-year-old female store manager",
+    "Patient C (54, male, English as a second language)":
+        "54-year-old male store manager who speaks English as a second language",
+}
+
 PATIENT_SYSTEM = """You are a standardized patient in a medical training simulation.
 You are role-playing a patient. You are NOT an assistant and NEVER give medical advice.
 
 HIDDEN CASE FILE (never state the diagnosis; reveal details only when the student asks):
-- Persona: 54-year-old store manager, anxious but cooperative. Came straight from work.
+- Persona: {demographics}, anxious but cooperative. Came straight from work.
 - Presenting complaint: pressure in the chest for about 2 hours.
 - History if asked: heavy central chest pressure, spreads to the left arm and jaw;
   started while climbing stairs; short of breath; sweaty; mildly nauseated;
@@ -43,15 +53,8 @@ Score only questions, statements, and actions explicitly present in the transcri
 Do not award credit merely because the patient volunteered information.
 Never claim that something happened at rest unless the transcript explicitly says so.
 
-Use this 100-point rubric:
-- Communication and empathy: 10 points
-- Chest-pain history: 25 points
-- Associated symptoms and red flags: 15 points
-- Cardiovascular risk factors: 15 points
-- Medical history, medications, and allergies: 10 points
-- Clinical reasoning, recognition of urgency, and immediate plan: 25 points
-
 Use a calm, supportive teaching tone.
+
 Do not judge whether the learner is fit for clinical practice.
 Do not give medication doses or detailed treatment protocols.
 When appropriate, recommend urgent assessment, senior help, an ECG,
@@ -63,12 +66,7 @@ Return the report in this structure:
 OVERALL SCORE: [score]/100
 
 SCORE BREAKDOWN
-- Communication and empathy: [score]/10
-- Chest-pain history: [score]/25
-- Associated symptoms and red flags: [score]/15
-- Cardiovascular risk factors: [score]/15
-- Medical history, medications, and allergies: [score]/10
-- Clinical reasoning and immediate plan: [score]/25
+(Use the exact categories and point values defined in the assessment sources below.)
 
 WHAT YOU DID WELL
 - Give specific examples from the transcript.
@@ -149,11 +147,26 @@ Do not invent a recommendation or citation.
 {REFERENCE_MATERIALS["guideline"]}
 </NICE_CHEST_PAIN_GUIDELINE>
 """
-
-@st.cache_resource
+def build_patient_system(demographics):
+    return PATIENT_SYSTEM.format(demographics=demographics)
+@lru_cache(maxsize=1)
 def get_bedrock_client():
     return boto3.client("bedrock-runtime", region_name="us-east-1")
 
+@lru_cache(maxsize=1)
+def get_polly_client():
+    return boto3.client("polly", region_name="us-east-1")
+
+
+def create_patient_audio(text):
+    response = get_polly_client().synthesize_speech(
+        Text=text,
+        OutputFormat="mp3",
+        VoiceId="Joanna",
+        Engine="neural",
+    )
+
+    return response["AudioStream"].read()
 
 def make_transcript(messages):
     lines = []
@@ -193,6 +206,9 @@ def correct_total_score(feedback):
 
     return feedback
 
+def extract_overall_score(feedback):
+    match = re.search(r"OVERALL SCORE:\s*(\d+)/100", feedback)
+    return int(match.group(1)) if match else None
 
 def generate_feedback(messages, clinical_impression):
     transcript = make_transcript(messages)
@@ -227,134 +243,3 @@ The learner's final clinical impression and immediate plan were:
 
     feedback = response["output"]["message"]["content"][0]["text"]
     return correct_total_score(feedback)
-
-
-st.set_page_config(
-    page_title="Patient Zero",
-    page_icon="🩺",
-    layout="centered",
-)
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-if "feedback" not in st.session_state:
-    st.session_state.feedback = None
-
-if "clinical_impression" not in st.session_state:
-    st.session_state.clinical_impression = ""
-
-st.title("Patient Zero")
-st.caption("AI-powered standardized patient training")
-
-st.info(
-    "You are the clinician. Interview the patient, then use the "
-    "assessment panel to finish the session."
-)
-
-with st.sidebar:
-    st.header("Simulation controls")
-
-    st.write(f"Questions asked: {len(st.session_state.messages) // 2}")
-
-    if st.button("Start a new interview", use_container_width=True):
-        st.session_state.messages = []
-        st.session_state.feedback = None
-        st.session_state.clinical_impression = ""
-        st.rerun()
-
-    st.divider()
-    st.subheader("Finish interview")
-
-    clinical_impression = st.text_area(
-        "Working diagnosis and immediate plan",
-        key="clinical_impression",
-        placeholder=(
-            "Enter your working diagnosis and describe what you "
-            "would do immediately."
-        ),
-        disabled=st.session_state.feedback is not None,
-    )
-
-    finish_clicked = st.button(
-        "Finish interview and get feedback",
-        type="primary",
-        use_container_width=True,
-        disabled=(
-            len(st.session_state.messages) == 0
-            or st.session_state.feedback is not None
-        ),
-    )
-
-    if finish_clicked:
-        if not clinical_impression.strip():
-            st.warning("Enter your diagnosis and immediate plan first.")
-        else:
-            try:
-                with st.spinner("Assessing your interview..."):
-                    st.session_state.feedback = generate_feedback(
-                        st.session_state.messages,
-                        clinical_impression,
-                    )
-                st.rerun()
-
-            except Exception as error:
-                st.error(f"Could not generate feedback: {error}")
-
-    st.divider()
-    st.caption(
-        "Educational simulation only. Not intended for real-world "
-        "diagnosis or patient care."
-    )
-
-for message in st.session_state.messages:
-    speaker = "user" if message["role"] == "user" else "assistant"
-    label = "You" if message["role"] == "user" else "Patient"
-
-    with st.chat_message(speaker):
-        st.markdown(f"**{label}:** {message['content'][0]['text']}")
-
-if st.session_state.feedback:
-    st.divider()
-    st.header("Interview feedback")
-    st.markdown(st.session_state.feedback)
-
-student_question = st.chat_input(
-    "Ask the patient a question",
-    disabled=st.session_state.feedback is not None,
-)
-
-if student_question:
-    user_message = {
-        "role": "user",
-        "content": [{"text": student_question}],
-    }
-
-    st.session_state.messages.append(user_message)
-
-    with st.chat_message("user"):
-        st.markdown(f"**You:** {student_question}")
-
-    try:
-        with st.chat_message("assistant"):
-            with st.spinner("The patient is responding..."):
-                response = get_bedrock_client().converse(
-                    modelId=MODEL_ID,
-                    system=[{"text": PATIENT_SYSTEM}],
-                    messages=st.session_state.messages,
-                    inferenceConfig={
-                        "maxTokens": 300,
-                        "temperature": 0.7,
-                    },
-                )
-
-                reply = response["output"]["message"]
-                patient_text = reply["content"][0]["text"]
-
-                st.markdown(f"**Patient:** {patient_text}")
-
-        st.session_state.messages.append(reply)
-
-    except Exception as error:
-        st.session_state.messages.pop()
-        st.error(f"Could not reach the patient model: {error}")

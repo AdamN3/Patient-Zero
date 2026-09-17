@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* Patient Zero is always dark: a clinical slate palette with a teal accent. */
+:root {
+  --background: #020617; /* slate-950 */
+  --foreground: #e2e8f0; /* slate-200 */
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Thin, unobtrusive scrollbars for the chat window. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+@keyframes pz-pulse-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.pz-typing-dot {
+  animation: pz-pulse-dot 1.2s infinite ease-in-out;
+}
+.pz-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.pz-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
