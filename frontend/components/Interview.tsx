@@ -83,23 +83,23 @@ export default function Interview({
   return (
     <main className="mx-auto flex h-dvh w-full max-w-5xl flex-col px-4 py-4 sm:px-6">
       {/* Top bar */}
-      <header className="flex items-center justify-between gap-4 rounded-xl border border-slate-800 bg-slate-900/70 px-5 py-3">
+      <header className="pz-card flex items-center justify-between gap-4 px-5 py-3">
         <div className="flex min-w-0 items-center gap-4">
-          <PatientAvatar speaking={speaking} />
+          <PatientAvatar variantId={variant.id} speaking={speaking} />
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-slate-100">{variant.label}</p>
-            <p className="truncate text-xs text-slate-400">{variant.demographics}</p>
+            <p className="truncate text-sm font-semibold text-[#0a2540]">{variant.label}</p>
+            <p className="truncate text-xs text-[#425466]">{variant.demographics}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="hidden rounded-full border border-slate-800 px-3 py-1 font-mono text-xs text-slate-400 sm:inline">
+          <span className="hidden rounded-full bg-[#f6f9fc] px-3 py-1 font-mono text-xs font-medium text-[#635bff] sm:inline">
             {questionCount} question{questionCount === 1 ? "" : "s"}
           </span>
           <button
             type="button"
             onClick={onAbandon}
-            className="rounded-md px-3 py-2 text-xs text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+            className="rounded-md px-3 py-2 text-xs font-medium text-slate-400 hover:bg-slate-50 hover:text-[#0a2540]"
           >
             Abandon
           </button>
@@ -108,7 +108,7 @@ export default function Interview({
             onClick={onEnd}
             disabled={!canEnd}
             title={endHint || "Finish and get feedback"}
-            className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-teal-500 disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-500"
+            className="pz-btn px-4 py-2 text-sm"
           >
             End Interview
           </button>
@@ -120,13 +120,13 @@ export default function Interview({
         ref={scrollRef}
         aria-live="polite"
         aria-label="Conversation"
-        className="my-4 flex-1 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 p-4 sm:p-6"
+        className="pz-card my-4 flex-1 overflow-y-auto p-4 sm:p-6"
       >
         {messages.length === 0 && !sending && (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <PatientAvatar size="lg" />
-            <p className="mt-5 text-sm text-slate-300">The patient is waiting.</p>
-            <p className="mt-1 max-w-sm text-xs leading-relaxed text-slate-500">
+            <PatientAvatar variantId={variant.id} size="xl" />
+            <p className="mt-5 text-sm font-medium text-[#0a2540]">The patient is waiting.</p>
+            <p className="mt-1 max-w-sm text-xs leading-relaxed text-[#425466]">
               Introduce yourself and ask what brought them in today. They will only share what
               you specifically ask about.
             </p>
@@ -143,10 +143,10 @@ export default function Interview({
               return (
                 <li key={index} className="flex justify-end">
                   <div className="max-w-[78%]">
-                    <p className="mb-1 text-right text-[11px] font-medium uppercase tracking-wider text-teal-400/80">
+                    <p className="mb-1 text-right text-[11px] font-semibold uppercase tracking-wider text-[#635bff]">
                       You
                     </p>
-                    <div className="rounded-2xl rounded-tr-sm bg-teal-900/50 px-4 py-2.5 text-sm leading-relaxed text-teal-50 ring-1 ring-teal-700/40">
+                    <div className="rounded-2xl rounded-tr-sm border border-slate-200 bg-white px-4 py-2.5 text-sm leading-relaxed text-[#0a2540] shadow-sm">
                       {text}
                     </div>
                   </div>
@@ -157,16 +157,19 @@ export default function Interview({
             return (
               <li key={index} className="flex items-end gap-3">
                 {/* Avatar column — the ElevenLabs face will render inside PatientAvatar. */}
-                <PatientAvatar speaking={speaking && index === messages.length - 1} />
+                <PatientAvatar
+                  variantId={variant.id}
+                  speaking={speaking && index === messages.length - 1}
+                />
                 <div className="max-w-[78%]">
-                  <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                     Patient
                   </p>
                   <div
                     className={
                       isGuardrail
-                        ? "rounded-2xl rounded-tl-sm border border-dashed border-slate-600 bg-slate-900/40 px-4 py-2.5 text-sm italic leading-relaxed text-slate-400"
-                        : "rounded-2xl rounded-tl-sm bg-slate-800 px-4 py-2.5 text-sm leading-relaxed text-slate-100 ring-1 ring-slate-700/60"
+                        ? "rounded-2xl rounded-tl-sm border border-dashed border-slate-300 bg-slate-50 px-4 py-2.5 text-sm italic leading-relaxed text-slate-500"
+                        : "rounded-2xl rounded-tl-sm bg-[#eeedff] px-4 py-2.5 text-sm leading-relaxed text-[#0a2540]"
                     }
                   >
                     {text}
@@ -178,15 +181,15 @@ export default function Interview({
 
           {sending && (
             <li className="flex items-end gap-3" aria-label="Patient is responding">
-              <PatientAvatar speaking />
+              <PatientAvatar variantId={variant.id} speaking />
               <div>
-                <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                   Patient
                 </p>
-                <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-slate-800 px-4 py-3 ring-1 ring-slate-700/60">
-                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-slate-300" />
-                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-slate-300" />
-                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-slate-300" />
+                <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-[#eeedff] px-4 py-3">
+                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-[#635bff]" />
+                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-[#635bff]" />
+                  <span className="pz-typing-dot h-1.5 w-1.5 rounded-full bg-[#635bff]" />
                 </div>
               </div>
             </li>
@@ -195,15 +198,12 @@ export default function Interview({
       </section>
 
       {/* Composer */}
-      <form
-        onSubmit={submit}
-        className="rounded-xl border border-slate-800 bg-slate-900/70 p-4"
-      >
+      <form onSubmit={submit} className="pz-card p-4">
         <label htmlFor="impression" className="flex items-baseline justify-between">
-          <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#0a2540]">
             Clinical impression
           </span>
-          <span className="text-[11px] text-slate-600">
+          <span className="text-[11px] text-slate-400">
             Working diagnosis and immediate plan — required before ending
           </span>
         </label>
@@ -215,7 +215,7 @@ export default function Interview({
           rows={2}
           maxLength={4000}
           placeholder="e.g. Likely acute coronary syndrome. Immediate 12-lead ECG, troponin, senior review; do not discharge."
-          className="mt-2 w-full resize-y rounded-md border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500/60"
+          className="mt-2 w-full resize-y rounded-lg border border-slate-200 bg-[#f6f9fc] px-3 py-2 text-sm text-[#0a2540] placeholder:text-slate-400 focus:border-[#635bff] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#635bff]/25"
         />
 
         <div className="mt-3 flex items-center gap-3">
@@ -229,20 +229,14 @@ export default function Interview({
             placeholder="Ask the patient a question…"
             aria-label="Your question to the patient"
             autoComplete="off"
-            className="flex-1 rounded-md border border-slate-700 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500/60 disabled:opacity-60"
+            className="flex-1 rounded-lg border border-slate-200 bg-[#f6f9fc] px-3 py-2.5 text-sm text-[#0a2540] placeholder:text-slate-400 focus:border-[#635bff] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#635bff]/25 disabled:opacity-60"
           />
-          <button
-            type="submit"
-            disabled={!canSend}
-            className="rounded-md bg-slate-100 px-5 py-2.5 text-sm font-medium text-slate-950 transition-colors hover:bg-white disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-500"
-          >
+          <button type="submit" disabled={!canSend} className="pz-btn px-5 py-2.5 text-sm">
             {sending ? "Sending…" : "Send"}
           </button>
         </div>
 
-        {endHint && (
-          <p className="mt-2 text-[11px] text-slate-600">{endHint}</p>
-        )}
+        {endHint && <p className="mt-2 text-[11px] text-slate-400">{endHint}</p>}
       </form>
     </main>
   );

@@ -13,7 +13,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={`${keyPrefix}-b${index}`} className="font-semibold text-slate-100">
+        <strong key={`${keyPrefix}-b${index}`} className="font-semibold text-[#0a2540]">
           {part.slice(2, -2)}
         </strong>
       );
@@ -93,11 +93,11 @@ export default function MarkdownLite({
   const blocks = toBlocks(text);
 
   if (!blocks.length) {
-    return <p className={`text-slate-500 ${className}`}>{emptyText}</p>;
+    return <p className={`text-slate-400 ${className}`}>{emptyText}</p>;
   }
 
   return (
-    <div className={`space-y-3 text-sm leading-relaxed text-slate-300 ${className}`}>
+    <div className={`space-y-3 text-sm leading-relaxed text-[#425466] ${className}`}>
       {blocks.map((block, blockIndex) => {
         const key = `blk-${blockIndex}`;
         if (block.kind === "p") {
@@ -105,7 +105,7 @@ export default function MarkdownLite({
         }
         if (block.kind === "ul") {
           return (
-            <ul key={key} className="list-disc space-y-1.5 pl-5 marker:text-slate-500">
+            <ul key={key} className="list-disc space-y-1.5 pl-5 marker:text-[#635bff]">
               {block.items.map((item, itemIndex) => (
                 <li key={`${key}-${itemIndex}`}>{renderInline(item, `${key}-${itemIndex}`)}</li>
               ))}
@@ -113,7 +113,7 @@ export default function MarkdownLite({
           );
         }
         return (
-          <ol key={key} className="list-decimal space-y-1.5 pl-5 marker:text-slate-500">
+          <ol key={key} className="list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-[#635bff]">
             {block.items.map((item, itemIndex) => (
               <li key={`${key}-${itemIndex}`}>{renderInline(item, `${key}-${itemIndex}`)}</li>
             ))}

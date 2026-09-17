@@ -1,15 +1,27 @@
 @import "tailwindcss";
 
-/* Patient Zero is always dark: a clinical slate palette with a teal accent. */
+/* Patient Zero — bright, Stripe-inspired theme.
+   Palette: white / #f6f9fc backgrounds, #0a2540 headings, #635bff indigo,
+   #00d4ff cyan, #00c853 green. No dark backgrounds. */
 :root {
-  --background: #020617; /* slate-950 */
-  --foreground: #e2e8f0; /* slate-200 */
-  color-scheme: dark;
+  --background: #f6f9fc;
+  --foreground: #425466;
+  --heading: #0a2540;
+  --indigo: #635bff;
+  --navy: #0a2540;
+  --cyan: #00d4ff;
+  --green: #00c853;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
+  --color-indigo-brand: var(--indigo);
+  --color-navy-brand: var(--navy);
+  --color-cyan-brand: var(--cyan);
+  --color-green-brand: var(--green);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, sans-serif;
@@ -29,10 +41,56 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Thin, unobtrusive scrollbars for the chat window. */
+/* Stripe-style card shadow */
+.pz-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 2px 5px -1px rgba(50, 50, 93, 0.12),
+    0 1px 3px -1px rgba(0, 0, 0, 0.08);
+}
+
+.pz-card-hover {
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+.pz-card-hover:hover {
+  box-shadow:
+    0 13px 27px -5px rgba(50, 50, 93, 0.2),
+    0 8px 16px -8px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Gradient primary button */
+.pz-btn {
+  background-image: linear-gradient(90deg, #635bff 0%, #00d4ff 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition:
+    filter 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+  box-shadow: 0 4px 12px -2px rgba(99, 91, 255, 0.4);
+}
+.pz-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 20px -4px rgba(99, 91, 255, 0.5);
+  transform: translateY(-1px);
+}
+.pz-btn:disabled {
+  background-image: none;
+  background-color: #e3e8ee;
+  color: #8898aa;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Thin scrollbars for the chat window */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #334155 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }
 
 @keyframes pz-pulse-dot {

@@ -8,12 +8,12 @@ interface ScoreRingProps {
 
 export function scoreTone(score: number | null, max = 100) {
   if (score === null) {
-    return { stroke: "#64748b", text: "text-slate-400", label: "Unscored" };
+    return { stroke: "#8898aa", text: "text-slate-400", label: "Unscored" };
   }
   const pct = score / max;
-  if (pct >= 0.75) return { stroke: "#2dd4bf", text: "text-teal-300", label: "Strong" };
-  if (pct >= 0.5) return { stroke: "#fbbf24", text: "text-amber-300", label: "Developing" };
-  return { stroke: "#f87171", text: "text-red-400", label: "Needs work" };
+  if (pct >= 0.75) return { stroke: "#00c853", text: "text-[#00a844]", label: "Strong" };
+  if (pct >= 0.5) return { stroke: "#f5a623", text: "text-[#d48806]", label: "Developing" };
+  return { stroke: "#ef4444", text: "text-[#dc2626]", label: "Needs work" };
 }
 
 /** SVG ring showing score / max. */
@@ -33,7 +33,7 @@ export default function ScoreRing({ score, max = 100, size = 168 }: ScoreRingPro
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#1e293b"
+          stroke="#e3e8ee"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -50,10 +50,10 @@ export default function ScoreRing({ score, max = 100, size = 168 }: ScoreRingPro
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className={`text-4xl font-semibold tabular-nums ${tone.text}`}>
+        <span className={`text-4xl font-bold tabular-nums ${tone.text}`}>
           {score === null ? "—" : score}
         </span>
-        <span className="text-xs uppercase tracking-widest text-slate-500">/ {max}</span>
+        <span className="text-xs font-medium uppercase tracking-widest text-slate-400">/ {max}</span>
       </div>
     </div>
   );
