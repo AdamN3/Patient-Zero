@@ -248,9 +248,13 @@ def limits_chart(path):
     img.save(path, "PNG")
 
 
-def build_plan(flow_png, limits_png):
+def build_plan(flow_png, limits_png, logo_png):
     doc = Document()
     setup(doc, "HACCP plan  ·  9 CFR 417  ·  Heat-treated, shelf-stable beef jerky")
+    pic = doc.add_paragraph()
+    pic.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pic.paragraph_format.space_after = Pt(4)
+    pic.add_run().add_picture(str(logo_png), width=Inches(2.5))
     p(doc, "HACCP PLAN", size=12, bold=True, center=True, after=2, color=RGBColor(0x1F, 0x4D, 0x36))
     p(doc, "Heat-treated, shelf-stable, ready-to-eat beef jerky", size=18, bold=True, center=True, after=2)
     p(doc, "Carne Seca Jesus Canales, LLC", size=14, bold=True, center=True, after=2)
@@ -541,12 +545,48 @@ def build_plan(flow_png, limits_png):
         ["Water-activity meter", "Finished jerky, a number from 0 to 1. It is not a percent-moisture meter.", "Meter __________", "Salt standards supplied with the meter, in the week jerky is made."],
     ], size=8)
     body(doc, "An instrument that fails its check is not used. Lots measured with it since the last good check are reviewed. Form 10.7: date __________, probe 32°F yes / no, oven thermometer yes / no, water-activity standards yes / no, initials __________.")
+
+    h1(doc, "17. Example of a passing lot")
+    body(doc, "The field checklist asks whether monitoring records exist. This section shows how one passing lot is written. Every line below is an example. It is not a lot produced at this plant. It does not validate the plan and it is not a signature. The blank forms in Section 10 are the ones used in production. Section 8.1 is signed in ink only after a real review.")
+    body(doc, "Ejemplo nada más. Estos números no son un lote de la planta. No validan el plan y no sustituyen la firma.")
+    h2(doc, "17.1 Example — CCP 1, lot EX-001")
+    body(doc, "Probe P-1. Cold spot: back, lower rack. Bag sealed on entry: yes. Thickest piece: yes.")
+    table(doc, ["Reading", "Clock time", "Internal °F"], [
+        ["Reaches 50°F", "8:00 a.m.", "50"],
+        ["Reaches 130°F", "10:15 a.m.", "130"],
+        ["Come-up. Limit: 6 hours or less.", "2 hours 15 minutes", "Met"],
+        ["Reaches 160°F or above", "10:42 a.m.", "162"],
+        ["Bag still sealed, then opened", "Opened 10:43 a.m.", "162"],
+    ], size=9)
+    body(doc, "Example result: every CCP 1 limit met. This page is not signed as a real review.")
+    h2(doc, "17.2 Example — CCP 2, lot EX-001")
+    body(doc, "CCP 1 passed before the bag was opened: yes. Dry bulb during drying: 176°F at 2:10 p.m. Limit: 170°F or above.")
+    table(doc, ["Piece", "Place in the lot", "Water activity"], [
+        ["1", "Front", "0.78"],
+        ["2", "Middle", "0.80"],
+        ["3", "Back", "0.81"],
+        ["4", "Top rack", "0.79"],
+        ["5", "Bottom rack", "0.82"],
+        ["6", "Thick piece", "0.81"],
+    ], size=9)
+    body(doc, "Highest reading: 0.82. Limit: 0.85 or less. Example result: met. Cooler example the same morning: 38°F in the meat, at or below 41°F.")
+    h2(doc, "17.3 Example — pre-shipment review, lot EX-001")
+    bullet(doc, "CCP 1 met: 162°F internal, come-up 2 hours 15 minutes, bag sealed until that reading.")
+    bullet(doc, "CCP 2 met: dry bulb 176°F, highest water activity 0.82.")
+    bullet(doc, "Bag says Contains: Soy, Wheat, and the ingredients match the batch sheet.")
+    body(doc, "A real pre-shipment review is signed on Form 10.5 for a real lot. Do not sign this example.")
     doc.save(OUT / "HACCP-Plan-Beef-Jerky-Final.docx")
 
 
 def build_support():
     doc = Document()
     setup(doc, "Scientific support for the critical limits  ·  Carne Seca Jesus Canales, LLC")
+    logo = OUT / "logo-canales.png"
+    if logo.exists():
+        pic = doc.add_paragraph()
+        pic.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        pic.paragraph_format.space_after = Pt(2)
+        pic.add_run().add_picture(str(logo), width=Inches(2.1))
     p(doc, "SCIENTIFIC SUPPORT", size=12, bold=True, center=True, after=2, color=RGBColor(0x1F, 0x4D, 0x36))
     p(doc, "Criteria used to set each critical limit", size=18, bold=True, center=True, after=4)
     p(doc, "Ready-to-eat, heat-treated, shelf-stable beef jerky", size=12, center=True, after=2)
@@ -651,27 +691,30 @@ def _letter_pages():
     cover.insert_font(fontname="B", fontfile=FONT_B)
     cover.insert_font(fontname="R", fontfile=FONT_R)
     cover.draw_rect(fitz.Rect(0, 0, 612, 10), color=green, fill=green)
-    cover.insert_textbox(fitz.Rect(54, 48, 558, 80), "PRINT THIS PACKET", fontname="B", fontsize=11, color=green)
+    logo = OUT / "logo-canales.png"
+    if logo.exists():
+        cover.insert_image(fitz.Rect(216, 22, 396, 148), filename=str(logo))
+    cover.insert_textbox(fitz.Rect(54, 154, 558, 174), "PRINT THIS PACKET", fontname="B", fontsize=11, color=green)
     cover.insert_textbox(
-        fitz.Rect(54, 78, 558, 160),
+        fitz.Rect(54, 176, 558, 236),
         "HACCP plan and scientific support\nReady-to-eat beef jerky",
         fontname="B",
-        fontsize=22,
+        fontsize=20,
         color=ink,
     )
     cover.insert_textbox(
-        fitz.Rect(54, 168, 558, 230),
+        fitz.Rect(54, 240, 558, 300),
         "Carne Seca Jesus Canales, LLC\n411 E Main St, Delta, UT 84624\n(435) 406-1178",
         fontname="R",
         fontsize=12,
         color=ink,
     )
-    cover.draw_rect(fitz.Rect(54, 248, 558, 249), color=green, fill=green)
+    cover.draw_rect(fitz.Rect(54, 308, 558, 309), color=green, fill=green)
     order = (
         "What is in this file, in print order\n\n"
         "1. This cover.\n"
         "2. Note to the reviewer.\n"
-        "3. HACCP plan, with the charts, how to measure, the logs, the signature page, the three validation lots, the oven steps, the Listeria program, and the instrument list.\n"
+        "3. HACCP plan, with the logo, the charts, how to measure, the blank logs, one example lot marked EXAMPLE, the signature page, the three validation lots, the oven steps, the Listeria program, and the instrument list.\n"
         "4. Scientific support for each critical limit.\n\n"
         "Print every page on letter paper. Sign in ink before the packet is sent.\n\n"
         "Sign the HACCP plan, section 8.1, Jesús Canales.\n"
@@ -679,7 +722,7 @@ def _letter_pages():
         "Leave the validation date blank until lots from this gas oven, this load, "
         "and this thickness have been reviewed."
     )
-    cover.insert_textbox(fitz.Rect(54, 268, 558, 560), order, fontname="R", fontsize=12, color=ink, align=fitz.TEXT_ALIGN_LEFT)
+    cover.insert_textbox(fitz.Rect(54, 322, 558, 680), order, fontname="R", fontsize=11, color=ink, align=fitz.TEXT_ALIGN_LEFT)
     cover.insert_textbox(
         fitz.Rect(54, 700, 558, 760),
         "Gas oven. Cook in a sealed bag, then dehydrate.\nA laboratory test is not the release step.",
@@ -741,7 +784,7 @@ def main():
     limits = OUT / "CHART-Critical-Limits.png"
     flow_chart(flow)
     limits_chart(limits)
-    build_plan(flow, limits)
+    build_plan(flow, limits, OUT / "logo-canales.png")
     build_support()
     build_letter()
     print("wrote", OUT)
