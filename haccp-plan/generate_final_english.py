@@ -367,7 +367,7 @@ def build_plan(flow_png, limits_png):
     bullet(doc, "Employee health. The establishment uses the FDA Employee Health Policy Tool (2022 Food Code, part 2-201; tool dated August 23, 2023) for restriction and exclusion of ill employees. A person who is ill does not handle meat or jerky. Hands are washed. Bare hands do not touch finished jerky. This tool does not set a critical limit.")
     bullet(doc, "Sanitation SOP, 9 CFR 416. After the bag is opened, jerky is handled only in the clean area. The sanitation SOP names Alternative 2 of 9 CFR 430.4: the finished water activity of 0.85 or less is the antimicrobial process that prevents growth of Listeria monocytogenes, together with sanitation in the ready-to-eat area. The food-contact-surface testing frequency required for that alternative is written in the sanitation SOP before a lot ships.")
     bullet(doc, "Allergens. The batch sheet lists soy and wheat. The pack-out check confirms the bag says Contains: Soy, Wheat.")
-    bullet(doc, "Thermometers and the water-activity meter are calibrated on the schedule in Section 8. An instrument that fails calibration is removed, and the lots checked with it since the last good calibration are reviewed.")
+    bullet(doc, "Thermometers and the water-activity meter are checked by the method in Section 9.5. An instrument that fails calibration is removed, and the lots checked with it since the last good calibration are reviewed.")
     body(doc, "The curing-and-smoking field checklist is not a prerequisite for this jerky and is not support for these limits. This product is not brine-cured, is not dry-cured, and is not hung to dry before a smoke schedule. That checklist was read so the wrong process would not be copied into this plan.")
 
     h1(doc, "8. Verification and records")
@@ -385,8 +385,52 @@ def build_plan(flow_png, limits_png):
     line(doc, "Initial validation completed (blank until the in-plant lots are reviewed):")
     line(doc, "Annual reassessment:")
 
-    h1(doc, "9. Forms")
-    h2(doc, "9.1 CCP 1 log — lethality")
+    h1(doc, "9. How to measure each limit")
+    body(doc, "Three instruments are used. A leave-in probe thermometer stays in the meat. A second thermometer hangs in the oven air during drying. A water-activity meter reads the finished jerky. The oven dial is the setting. The number written on the log is the number on the instrument.")
+
+    h2(doc, "9.1 Cold meat, before cooking")
+    body(doc, "Put the probe in the meat, not in the air of the cooler. Write the time and the temperature on Form 10.3. The limit is 41°F or below.")
+
+    h2(doc, "9.2 Lethality — the probe stays inside the sealed bag")
+    body(doc, "Choose the thickest strip and place it in the part of the oven that heats last. Put the tip of the probe in the center of that strip. The tip does not stick out into the air and does not touch the rack. Seal the bag around the probe cable so moisture stays in the bag. The bag is not opened to read the temperature.")
+    body(doc, "On Form 10.1, with that same probe, write the clock at three points.")
+    table(doc, ["When the meat reads", "What is written"], [
+        ["50°F", "The clock time."],
+        ["130°F", "The clock time."],
+        ["160°F or above", "The clock time and the exact temperature."],
+    ], size=10)
+    body(doc, "Come-up time is the 130°F clock time minus the 50°F clock time. Example: 50°F at 8:00 and 130°F at 10:30 is 2 hours 30 minutes. The limit is 6 hours or less. If the bag is still sealed when the meat reaches 160°F, the cook has passed. Write the time the bag is opened. If the bag is opened before that reading, the lot is held.")
+
+    h2(doc, "9.3 Drying — oven air, after the bag is opened")
+    body(doc, "Hang a thermometer in the oven air, away from the wall, not stuck in the meat. Before the strips are taken out, read that thermometer. The limit is 170°F or above. Write the degrees and the time on Form 10.2.")
+
+    h2(doc, "9.4 Water activity — before packing")
+    body(doc, "The meter reads a number between 0 and 1, such as 0.81. A meter that reports only percent moisture is not this instrument.")
+    body(doc, "Let the pieces cool, covered, to the temperature in the meter’s manual. Most meters read correctly near 77°F. A strip just out of a 170°F oven gives a false reading.")
+    body(doc, "Take six strips from different places: front, middle, back, top rack, bottom rack, and one thick piece. Place each piece in the sample cup the way the manual describes. Write all six readings on Form 10.2. The lot result is the highest reading. If that reading is 0.85 or less, the lot passes. If any one reading is above 0.85, the lot is not packed.")
+
+    h2(doc, "9.5 Checking the instruments")
+    body(doc, "Once each week that jerky is made:")
+    bullet(doc, "Probe. A glass of ice with a little water. The probe stays in the ice water and does not touch the glass. It must read 32°F. If it does not, adjust it by the manufacturer’s instructions or remove it from use.")
+    bullet(doc, "Water-activity meter. Use the salt standards supplied with the meter.")
+    body(doc, "An instrument that fails the check is not used. Lots measured with it since the last good check are reviewed.")
+
+    h2(doc, "9.6 Measurements that are not taken on every lot")
+    body(doc, "A Listeria swab is taken from tables, trays, and any surface that touches the jerky after the bag is opened. The swab goes to a laboratory. It is not a test of the bag of jerky. Moisture and protein, for the name “jerky,” are sent once on the validation lots. Neither result releases the lot. The lot is released by the probe, the clock, the dry-bulb thermometer, and the water-activity meter.")
+
+    h1(doc, "9-A. Cómo medir cada límite")
+    body(doc, "Esta sección es la misma instrucción, para la persona que opera el horno. Los límites siguen siendo los de la sección 6.")
+    body(doc, "Se usan tres instrumentos. Una sonda se queda dentro de la carne. Otro termómetro cuelga en el aire del horno durante el secado. Un medidor de actividad de agua lee el producto terminado. La perilla del horno es el ajuste. El número que se anota es el del instrumento.")
+    bullet(doc, "Frío. La sonda va en la carne, no en el aire del refrigerador. Límite: 41°F o menos. Hoja 10.3.")
+    bullet(doc, "Cocido. La tira más gruesa va en la parte del horno que se calienta menos. La punta de la sonda queda en el centro de esa tira, sin salir al aire y sin tocar la rejilla. La bolsa se cierra alrededor del cable. No se abre para ver la temperatura.")
+    bullet(doc, "En la hoja 10.1 se anota la hora a 50°F, la hora a 130°F, y la hora y los grados al llegar a 160°F o más. El tiempo de subida es la hora de 130°F menos la hora de 50°F. Ejemplo: 8:00 y 10:30 son 2 horas 30 minutos. Límite: 6 horas o menos. Si a 160°F la bolsa sigue cerrada, el cocido pasó. Se anota la hora en que se abre. Si se abre antes, el lote se detiene.")
+    bullet(doc, "Secado. Un termómetro cuelga en el aire del horno, lejos de la pared, sin clavarlo en la carne. Se lee antes de sacar las tiras. Límite: 170°F o más. Hoja 10.2.")
+    bullet(doc, "Actividad de agua. El aparato marca un número entre 0 y 1, por ejemplo 0.81. No sirve un medidor que solo dé el porcentaje de humedad. Las piezas se enfrían tapadas hasta la temperatura del manual, casi siempre cerca de 77°F. Una tira a 170°F da una lectura falsa. Se toman seis tiras: adelante, en medio, atrás, rejilla de arriba, rejilla de abajo, y una gruesa. El resultado del lote es la lectura más alta. Si es 0.85 o menos, pasa. Si una marca más de 0.85, no se empaca.")
+    bullet(doc, "Cada semana de producción: la sonda en hielo con un poco de agua, sin tocar el vaso, tiene que marcar 32°F. El medidor de actividad de agua se comprueba con las sales del fabricante. Si un aparato falla, no se usa, y se revisan los lotes medidos desde la última prueba buena.")
+    bullet(doc, "El hisopo de Listeria es de mesas, charolas y superficies que tocan la carne después de abrir la bolsa. Va al laboratorio. No es un análisis de la bolsa. Humedad y proteína, para el nombre “jerky”, se mandan una vez en los lotes de validación. El lote lo sueltan la sonda, el reloj, el termómetro del aire y el medidor de actividad de agua.")
+
+    h1(doc, "10. Forms")
+    h2(doc, "10.1 CCP 1 log — lethality")
     body(doc, "Lot __________   Date __________   Oven __________   Probe __________")
     body(doc, "Bag sealed on entry: yes / no. Probe in the thickest piece: yes / no. Cold-spot location: __________")
     table(doc, ["Reading", "Clock time", "Internal °F", "Initials"], [
@@ -396,9 +440,9 @@ def build_plan(flow_png, limits_png):
         ["Internal temperature reaches 160°F or above", "", "", ""],
         ["Bag still sealed at that reading, then time opened", "", "", ""],
     ], size=9)
-    body(doc, "Limit met: yes / no. If no, lot held and Form 9.4 is completed. Reviewer __________ Date __________")
+    body(doc, "Limit met: yes / no. If no, lot held and Form 10.4 is completed. Reviewer __________ Date __________")
 
-    h2(doc, "9.2 CCP 2 log — dehydration")
+    h2(doc, "10.2 CCP 2 log — dehydration")
     body(doc, "Lot __________   Date __________   Dry-bulb thermometer __________   Water-activity meter __________")
     body(doc, "CCP 1 passed before the bag was opened: yes / no.")
     body(doc, "Dry bulb during drying: __________ °F. Limit: 170°F or above. Time read: __________")
@@ -412,10 +456,10 @@ def build_plan(flow_png, limits_png):
     ], size=9)
     body(doc, "Highest reading: __________. Limit: 0.85 or less. Limit met: yes / no. Reviewer __________ Date __________")
 
-    h2(doc, "9.3 Cooler log — prerequisite, not a CCP")
+    h2(doc, "10.3 Cooler log — prerequisite, not a CCP")
     body(doc, "Date __________  Time __________  Product temperature __________ °F  Limit: 41°F or less  Initials __________")
 
-    h2(doc, "9.4 Corrective action")
+    h2(doc, "10.4 Corrective action")
     body(doc, "Lot __________  CCP __________  Date __________  Time __________")
     body(doc, "What was measured: ________________________________")
     body(doc, "Limit that was missed: ________________________________")
@@ -425,7 +469,7 @@ def build_plan(flow_png, limits_png):
     body(doc, "Disposition. The lot is held. It is not sold as ready-to-eat jerky unless every limit is met on the records. A laboratory test is not the release step.")
     line(doc, "Jesús Canales:")
 
-    h2(doc, "9.5 Pre-shipment review")
+    h2(doc, "10.5 Pre-shipment review")
     body(doc, "Lot __________  Date __________")
     bullet(doc, "CCP 1: 160°F internal, come-up 6 hours or less, bag sealed until that reading.")
     bullet(doc, "CCP 2: dry bulb 170°F or above, highest of six water-activity readings 0.85 or less.")
@@ -433,7 +477,7 @@ def build_plan(flow_png, limits_png):
     bullet(doc, "Any corrective action is finished. No injurious product is in this shipment.")
     line(doc, "Reviewer signature and date:")
 
-    h1(doc, "10. Documents kept with this plan")
+    h1(doc, "11. Documents kept with this plan")
     bullet(doc, "Scientific Support for the Critical Limits, the companion to this plan.")
     bullet(doc, "FSIS Cooking Guideline for Meat and Poultry Products (Revised Appendix A), December 2021, FSIS-GD-2021-14.")
     bullet(doc, "Principles of Preservation of Shelf-Stable Dried Meat Products, October 31, 2011.")
@@ -572,7 +616,7 @@ def _letter_pages():
         "What is in this file, in print order\n\n"
         "1. This cover.\n"
         "2. Note to the reviewer.\n"
-        "3. HACCP plan, with the process chart, the limits chart, and the blank logs.\n"
+        "3. HACCP plan, with the process chart, the limits chart, how each limit is measured, and the blank logs.\n"
         "4. Scientific support for each critical limit.\n\n"
         "Print every page on letter paper. Sign in ink before the packet is sent.\n\n"
         "Sign the HACCP plan, section 8.1, Jesús Canales.\n"
