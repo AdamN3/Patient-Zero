@@ -378,11 +378,13 @@ def build_plan(flow_png, limits_png):
     bullet(doc, "Records, 9 CFR 417.5. Each record shows the plant, the date, the product, the lot, the actual number measured, the initials of the monitor, and the review. Shelf-stable product records are kept for at least two years.")
     bullet(doc, "Training, 9 CFR 417.7. At least one person has completed training in the seven HACCP principles for meat and poultry. Name: ______________________________  Date of training: ______________.")
 
-    h2(doc, "8.1 Signature")
-    body(doc, "9 CFR 417.2(d). Signing accepts this plan for this product and this gas oven.")
-    line(doc, "Responsible establishment official, Jesús Canales:")
+    h2(doc, "8.1 Signature — inspection item 1")
+    body(doc, "9 CFR 417.2(d). The responsible official signs before the plan is used. The signature is in ink. A typed name is not the signature. The same person signs the scientific-support document on the same day. The plan is signed again at least once a year and whenever it is changed.")
+    body(doc, "I am the responsible establishment official of Carne Seca Jesus Canales, LLC. I have reviewed this HACCP plan for ready-to-eat beef jerky made in this gas oven. Signing accepts the hazard analysis, the critical limits, the monitoring, the corrective actions, the verification, and the records in this plan.")
+    line(doc, "Signature, Jesús Canales:")
+    line(doc, "Printed name:")
     line(doc, "Date:")
-    line(doc, "Initial validation completed (blank until the in-plant lots are reviewed):")
+    line(doc, "Initial validation completed (blank until Section 13 is reviewed):")
     line(doc, "Annual reassessment:")
 
     h1(doc, "9. How to measure each limit")
@@ -485,7 +487,60 @@ def build_plan(flow_png, limits_png):
     bullet(doc, "FDA Employee Health Policy Tool, August 23, 2023, for the employee-health prerequisite.")
     bullet(doc, "FSIS HACCP Model for Ready-to-Eat, Heat-Treated, Shelf-Stable Beef Jerky, 2021-0004, CCP 2, for the 170°F drying temperature.")
     bullet(doc, "FSIS Stabilization Guideline (Revised Appendix B), December 2021, as cited by that model.")
-    body(doc, "The curing-and-smoking checklist is on file as a document that was reviewed and not used. The returned May plan is on file as the plan this one replaces.")
+    body(doc, "The curing-and-smoking checklist is on file as a document that was reviewed and not used. The returned May plan is on file as the plan this one replaces. Sections 12 through 16 complete the five items an inspector still checks before this plan can be used.")
+
+    h1(doc, "12. Item 1 — signature")
+    body(doc, "The signature block is Section 8.1 of this plan and Section 6 of the scientific support. Both are signed in ink by Jesús Canales before the packet is sent. The validation date on that block stays blank until the three lots in Section 13 have been reviewed.")
+
+    h1(doc, "13. Item 2 — in-plant validation")
+    body(doc, "9 CFR 417.4(a)(1). The scientific support is already written. The in-plant part is three lots on this gas oven, with the load and the strip thickness that will be used in production. A lot that misses a limit does not count. The cause is corrected before the next validation lot. The validation date is written only after all three lots meet every limit and Jesús Canales reviews the logs.")
+    bullet(doc, "Lot 1 also finds the cold spot. The same thick strip size is probed in three places in the oven: front, center, and back, or top, middle, and bottom if that is how the racks sit. The place that reaches 160°F last is the cold spot. It is written here: __________.")
+    bullet(doc, "Lots 2 and 3 use that cold spot and the thickest strip. Each lot completes Form 10.1 and Form 10.2.")
+    bullet(doc, "All three instruments in Section 16 have passed their checks before lot 1 starts.")
+    table(doc, ["Validation lot", "Date", "Load and thickness", "CCP 1 met", "CCP 2 met", "Reviewer"], [
+        ["1 (cold spot)", "", "", "yes / no", "yes / no", ""],
+        ["2", "", "", "yes / no", "yes / no", ""],
+        ["3", "", "", "yes / no", "yes / no", ""],
+    ], size=9)
+    body(doc, "Cold spot found on lot 1: __________. Thickness used: __________. Validation date, filled only when all three lots passed: __________.")
+
+    h1(doc, "14. Item 3 — how this gas oven is run")
+    body(doc, "The meat is not dehydrated until the cook in the sealed bag has passed. One lot follows these steps.")
+    bullet(doc, "Hold the raw beef at or below 41°F. Weigh the formula in Section 3.1 onto the batch sheet.")
+    bullet(doc, "Put the thickest strip in the cold spot. Place the probe in the center of that strip. Seal the moisture-impermeable bag around the meat and the probe cable.")
+    bullet(doc, "Put the sealed bag in the heated gas oven. Leave the burner vent as the oven requires. Do not treat this oven as a sealed oven.")
+    bullet(doc, "Write the clock at 50°F, at 130°F, and at 160°F or above. Open the bag only after 160°F is written and the come-up is 6 hours or less.")
+    bullet(doc, "Rack the strips so air can dry them. Keep the dry-bulb thermometer at 170°F or above. Read it before the strips come out.")
+    bullet(doc, "Cool six pieces, covered, to the meter temperature. Record the water activity. Pack only if the highest reading is 0.85 or less and the pre-shipment review is signed.")
+    body(doc, "Para quien opera el horno: la carne no se seca hasta que la bolsa cerrada llegó a 160°F por dentro. La sonda se queda en la tira más gruesa. La bolsa se abre después de anotar 160°F y de comprobar que de 50°F a 130°F pasaron 6 horas o menos. Luego se seca a 170°F en el aire del horno y se miden seis piezas. Si la más alta pasa de 0.85, no se empaca.")
+
+    h1(doc, "15. Item 4 — Listeria sanitation program")
+    body(doc, "After the bag is opened, the jerky is post-lethality exposed. This plant uses Alternative 2, Choice 2, of 9 CFR 430.4. The antimicrobial process is the finished water activity of 0.85 or less, which is below the 0.92 growth minimum for Listeria monocytogenes. Sanitation in the ready-to-eat area goes with that process. This section is the sanitation program the regulation requires for that choice.")
+    h2(doc, "15.1 Clean before the bag is opened")
+    body(doc, "On each production day, before exposed jerky is handled, the person in charge looks at the racks, the table, the scale, and the utensils. They are clean to sight and touch. The result is written on the pre-operational line of Form 10.6. Jerky is not laid on a surface that fails that check.")
+    h2(doc, "15.2 Food-contact surface testing")
+    body(doc, "The laboratory test is for Listeria spp. on food-contact surfaces. It is not a test of the jerky in the bag.")
+    bullet(doc, "Frequency. One sampling event in the first validation week, before a lot ships, and then one event each calendar quarter while jerky is made. There is one line.")
+    bullet(doc, "Why this frequency is enough. FSIS recommends quarterly food-contact testing per line for Alternative 2. This plant has one line. The finished water activity prevents growth of Listeria monocytogenes during storage. The first event is done before product ships.")
+    bullet(doc, "Sites, each event. (1) The rack or tray that holds jerky after the bag is opened. (2) The table where jerky is placed before packing. (3) The scale pan or the tongs that touch the jerky. If a glove or the sealer touches the meat, that surface is added.")
+    bullet(doc, "Size. Up to 12 inches by 12 inches of the food-contact area. If the surface is smaller, the whole food-contact face is swabbed.")
+    h2(doc, "15.3 When a swab is positive")
+    body(doc, "A positive Listeria spp. result on a food-contact surface: packing stops, the lot in the room is held, the site is cleaned and sanitized, and the site is swabbed again before the next lot. If that second swab is positive, or if the laboratory reports Listeria monocytogenes, the held lot does not ship. Jesús Canales tells the inspector. The lot is not released by a finished-product laboratory test. Disposition is written on Form 10.4 and Form 10.6.")
+    table(doc, ["Date", "Site", "Area swabbed", "Lab result", "Lot held", "Initials"], [
+        ["", "Rack / tray", "", "", "yes / no", ""],
+        ["", "Table", "", "", "yes / no", ""],
+        ["", "Scale or tongs", "", "", "yes / no", ""],
+    ], size=9)
+    body(doc, "Form 10.6. Pre-operational check the same day: clean to sight and touch, yes / no __________. Person __________.")
+
+    h1(doc, "16. Item 5 — instruments on site")
+    body(doc, "The first validation lot does not start until these three instruments are in the plant and the checks below are written. The oven dial is not one of the three.")
+    table(doc, ["Instrument", "What it measures", "Mark the ID", "Check before use"], [
+        ["Leave-in probe thermometer", "Internal meat temperature, °F. It stays in the strip inside the sealed bag.", "Probe __________", "Ice water reads 32°F. The probe does not touch the glass."],
+        ["Oven-air thermometer", "Dry-bulb temperature during drying, °F. It hangs in the air, off the wall, not in the meat.", "Oven __________", "Ice water reads 32°F if the thermometer can be removed. If it is fixed, hold the calibrated probe in the oven air beside it and write both numbers. The probe is the record if they differ."],
+        ["Water-activity meter", "Finished jerky, a number from 0 to 1. It is not a percent-moisture meter.", "Meter __________", "Salt standards supplied with the meter, in the week jerky is made."],
+    ], size=8)
+    body(doc, "An instrument that fails its check is not used. Lots measured with it since the last good check are reviewed. Form 10.7: date __________, probe 32°F yes / no, oven thermometer yes / no, water-activity standards yes / no, initials __________.")
     doc.save(OUT / "HACCP-Plan-Beef-Jerky-Final.docx")
 
 
@@ -616,7 +671,7 @@ def _letter_pages():
         "What is in this file, in print order\n\n"
         "1. This cover.\n"
         "2. Note to the reviewer.\n"
-        "3. HACCP plan, with the process chart, the limits chart, how each limit is measured, and the blank logs.\n"
+        "3. HACCP plan, with the charts, how to measure, the logs, the signature page, the three validation lots, the oven steps, the Listeria program, and the instrument list.\n"
         "4. Scientific support for each critical limit.\n\n"
         "Print every page on letter paper. Sign in ink before the packet is sent.\n\n"
         "Sign the HACCP plan, section 8.1, Jesús Canales.\n"
