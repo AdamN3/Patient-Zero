@@ -154,31 +154,25 @@ def build():
 
     steps = [
         ([("1. Receive inspected beef", 12, True), ("Invoice and mark of inspection. Measure product temperature.", 10, False)], CREAM, INK, LINE),
-        ([("2. Receive salt, spices, and bags", 12, True), ("Specification matches. No nitrite.", 10, False)], CREAM, INK, LINE),
+        ([("2. Receive salt, spices, and bags", 12, True), ("Specification matches. No nitrite. No soy. No wheat.", 10, False)], CREAM, INK, LINE),
+        ([("3. Cold storage — not a CCP", 12, True), ("Product below 41°F. Prerequisite, stricter than the model’s 45°F.", 10, False)], CREAM, INK, LINE),
+        ([("4. Slice, weigh, marinate, single layer", 12, True), ("Still below 41°F. Do not stack. Do not dry before the cook.", 10, False)], CREAM, INK, LINE),
         ([
-            ("CCP-1  ·  COOLER", 11, True),
-            ("Store and marinate the beef", 12, True),
-            ("Product temperature below 41°F (5°C)", 10, False),
-            ("Probe the meat, not the cooler air", 10, False),
-        ], GREEN, WHITE, GREEN),
-        ([("3. Slice", 12, True), ("Record thickness on the batch sheet.", 10, False)], CREAM, INK, LINE),
-        ([("4. Weigh the batch and mix", 12, True), ("Beef, salt, and the spices on the batch sheet.", 10, False)], CREAM, INK, LINE),
-        ([("5. Single layer on racks", 12, True), ("Do not stack. Do not dry before the cook.", 10, False)], CREAM, INK, LINE),
-        ([
-            ("CCP-2  ·  HUMID COOK, BEFORE DRYING", 11, True),
-            ("Dry bulb above 170°F within 30 minutes", 10, False),
-            ("Wet bulb from 125°F to 142°F", 10, False),
-            ("Internal 158°F or above, thickest piece", 10, False),
-            ("From 50°F to 130°F: 6 hours or less", 10, False),
+            ("CCP 1  ·  COOKING, BEFORE DRYING", 11, True),
+            ("Internal 145°F for at least 4 minutes", 10, False),
+            ("Wet bulb at least 125°F for at least 1 hour", 10, False),
+            ("Relative humidity at least 27% for at least 1 hour", 10, False),
+            ("Oven sealed for 1 hour or 50% of the cook, whichever is longer", 10, False),
+            ("Dampers closed within 30 minutes. Come-up 6 hours or less.", 10, False),
         ], GREEN, WHITE, GREEN),
         ([
-            ("CCP-3  ·  DRYING", 11, True),
-            ("Water activity below 0.88", 10, False),
-            ("Three pieces. The highest reading is the result.", 10, False),
+            ("CCP 2  ·  DRYING", 11, True),
+            ("Dry bulb at least 170°F during drying", 10, False),
+            ("Water activity 0.85 or less", 10, False),
+            ("At least six pieces. The highest reading is the result.", 10, False),
         ], GREEN, WHITE, GREEN),
-        ([("6. Cool dry", 12, True), ("Do not rinse or mist.", 10, False)], CREAM, INK, LINE),
-        ([("7. Pack and label", 12, True), ("Only if all three CCPs passed. Bag marked with the lot.", 10, False)], CREAM, INK, LINE),
-        ([("8. Review the numbers and sign", 12, True), ("Each number is compared with its limit. Then dry storage.", 10, False)], CREAM, INK, LINE),
+        ([("5. Cool dry, pack, and label", 12, True), ("Do not rinse. Only if both CCPs passed. Lot code on the bag.", 10, False)], CREAM, INK, LINE),
+        ([("6. Review the numbers and sign", 12, True), ("Pre-shipment review under 9 CFR 417.5(c). Then dry storage.", 10, False)], CREAM, INK, LINE),
     ]
     for lines, fill, ink, border in steps:
         box(doc, lines, fill, ink, border)
@@ -194,7 +188,7 @@ def build():
     cell.text = ""
     par = cell.paragraphs[0]
     par.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = par.add_run("If a limit is missed, the lot is held and is not sold as ready-to-eat beef jerky.")
+    run = par.add_run("If a CCP limit is missed, the lot is held and is not sold as ready-to-eat beef jerky.")
     font(run, size=11, bold=True, color=RGBColor(0x8C, 0x3D, 0x24))
 
     doc.add_page_break()
@@ -206,17 +200,19 @@ def build():
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
     sub.paragraph_format.space_after = Pt(10)
-    run = sub.add_run("What is written for each lot, before it is sold")
+    run = sub.add_run("From the FSIS beef jerky HACCP model, 2021-0004, and Appendix A")
     font(run, size=12)
 
     headers = ["Point", "What is measured", "The lot passes if"]
     rows = [
-        ["CCP-1 Cooler", "Product temperature", "Below 41°F (5°C)"],
-        ["CCP-2 Cook", "Dry bulb", "Above 170°F within the first 30 minutes"],
-        ["CCP-2 Cook", "Wet bulb", "From 125°F to 142°F during the cook"],
-        ["CCP-2 Cook", "Internal temperature", "158°F or above. The lowest reading."],
-        ["CCP-2 Cook", "Come-up time", "From 50°F to 130°F, 6 hours or less"],
-        ["CCP-3 Drying", "Water activity", "Below 0.88. The highest of three pieces."],
+        ["Prerequisite", "Product temperature", "Below 41°F. Not a CCP."],
+        ["CCP 1 Cooking", "Internal temperature", "145°F or above for at least 4 minutes"],
+        ["CCP 1 Cooking", "Wet bulb", "At least 125°F for at least 1 hour"],
+        ["CCP 1 Cooking", "Relative humidity", "At least 27% for at least 1 hour"],
+        ["CCP 1 Cooking", "Sealed oven", "Dampers closed within 30 minutes, and kept closed for 1 hour or 50% of the cook, whichever is longer"],
+        ["CCP 1 Cooking", "Come-up time", "From 50°F to 130°F, 6 hours or less"],
+        ["CCP 2 Drying", "Dry bulb", "At least 170°F during drying"],
+        ["CCP 2 Drying", "Water activity", "0.85 or less. Highest of at least six pieces."],
     ]
     table = doc.add_table(rows=1 + len(rows), cols=3)
     table.style = "Table Grid"
@@ -240,12 +236,12 @@ def build():
 
     note = doc.add_paragraph()
     note.paragraph_format.space_before = Pt(10)
-    run = note.add_run("A blank or the word “yes” does not count. The measured number has to be written. If a number is missing, the lot does not ship.")
+    run = note.add_run("A blank or the word “yes” does not count. The measured number has to be written. If a CCP number is missing, the lot does not ship. 9 CFR 417.5.")
     font(run, size=11)
 
     foot = doc.add_paragraph()
     foot.paragraph_format.space_before = Pt(8)
-    run = foot.add_run("Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Limits from the jerky verification sheet and FSIS Appendix A, December 2021.")
+    run = foot.add_run("Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Limits from the FSIS beef jerky HACCP model (2021-0004) and Appendix A (December 2021).")
     font(run, size=9, italic=True, color=RGBColor(0x4A, 0x43, 0x3A))
 
     doc.save(OUT)
