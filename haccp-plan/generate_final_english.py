@@ -426,17 +426,6 @@ def build_plan(flow_png, limits_png, logo_png):
     h2(doc, "9.6 Measurements that are not taken on every lot")
     body(doc, "A Listeria swab is taken from tables, trays, and any surface that touches the jerky after the bag is opened. The swab goes to a laboratory. It is not a test of the bag of jerky. Moisture and protein, for the name “jerky,” are sent once on the validation lots. Neither result releases the lot. The lot is released by the probe, the clock, the dry-bulb thermometer, and the water-activity meter.")
 
-    h1(doc, "9-A. Cómo medir cada límite")
-    body(doc, "Esta sección es la misma instrucción, para la persona que opera el horno. Los límites siguen siendo los de la sección 6.")
-    body(doc, "Se usan tres instrumentos. Una sonda se queda dentro de la carne. Otro termómetro cuelga en el aire del horno durante el secado. Un medidor de actividad de agua lee el producto terminado. La perilla del horno es el ajuste. El número que se anota es el del instrumento.")
-    bullet(doc, "Frío. La sonda va en la carne, no en el aire del refrigerador. Límite: 41°F o menos. Hoja 10.3.")
-    bullet(doc, "Cocido. La tira más gruesa va en la parte del horno que se calienta menos. La punta de la sonda queda en el centro de esa tira, sin salir al aire y sin tocar la rejilla. La bolsa se cierra alrededor del cable. No se abre para ver la temperatura.")
-    bullet(doc, "En la hoja 10.1 se anota la hora a 50°F, la hora a 130°F, y la hora y los grados al llegar a 160°F o más. El tiempo de subida es la hora de 130°F menos la hora de 50°F. Ejemplo: 8:00 y 10:30 son 2 horas 30 minutos. Límite: 6 horas o menos. Si a 160°F la bolsa sigue cerrada, el cocido pasó. Se anota la hora en que se abre. Si se abre antes, el lote se detiene.")
-    bullet(doc, "Secado. Un termómetro cuelga en el aire del horno, lejos de la pared, sin clavarlo en la carne. Se lee antes de sacar las tiras. Límite: 170°F o más. Hoja 10.2.")
-    bullet(doc, "Actividad de agua. El aparato marca un número entre 0 y 1, por ejemplo 0.81. No sirve un medidor que solo dé el porcentaje de humedad. Las piezas se enfrían tapadas hasta la temperatura del manual, casi siempre cerca de 77°F. Una tira a 170°F da una lectura falsa. Se toman seis tiras: adelante, en medio, atrás, rejilla de arriba, rejilla de abajo, y una gruesa. El resultado del lote es la lectura más alta. Si es 0.85 o menos, pasa. Si una marca más de 0.85, no se empaca.")
-    bullet(doc, "Cada semana de producción: la sonda en hielo con un poco de agua, sin tocar el vaso, tiene que marcar 32°F. El medidor de actividad de agua se comprueba con las sales del fabricante. Si un aparato falla, no se usa, y se revisan los lotes medidos desde la última prueba buena.")
-    bullet(doc, "El hisopo de Listeria es de mesas, charolas y superficies que tocan la carne después de abrir la bolsa. Va al laboratorio. No es un análisis de la bolsa. Humedad y proteína, para el nombre “jerky”, se mandan una vez en los lotes de validación. El lote lo sueltan la sonda, el reloj, el termómetro del aire y el medidor de actividad de agua.")
-
     h1(doc, "10. Forms")
     h2(doc, "10.1 CCP 1 log — lethality")
     body(doc, "Lot __________   Date __________   Oven __________   Probe __________")
@@ -518,7 +507,6 @@ def build_plan(flow_png, limits_png, logo_png):
     bullet(doc, "Write the clock at 50°F, at 130°F, and at 160°F or above. Open the bag only after 160°F is written and the come-up is 6 hours or less.")
     bullet(doc, "Rack the strips so air can dry them. Keep the dry-bulb thermometer at 170°F or above. Read it before the strips come out.")
     bullet(doc, "Cool six pieces, covered, to the meter temperature. Record the water activity. Pack only if the highest reading is 0.85 or less and the pre-shipment review is signed.")
-    body(doc, "Para quien opera el horno: la carne no se seca hasta que la bolsa cerrada llegó a 160°F por dentro. La sonda se queda en la tira más gruesa. La bolsa se abre después de anotar 160°F y de comprobar que de 50°F a 130°F pasaron 6 horas o menos. Luego se seca a 170°F en el aire del horno y se miden seis piezas. Si la más alta pasa de 0.85, no se empaca.")
 
     h1(doc, "15. Item 4 — Listeria sanitation program")
     body(doc, "After the bag is opened, the jerky is post-lethality exposed. This plant uses Alternative 2, Choice 2, of 9 CFR 430.4. The antimicrobial process is the finished water activity of 0.85 or less, which is below the 0.92 growth minimum for Listeria monocytogenes. Sanitation in the ready-to-eat area goes with that process. This section is the sanitation program the regulation requires for that choice.")
@@ -550,7 +538,6 @@ def build_plan(flow_png, limits_png, logo_png):
 
     h1(doc, "17. Example of a passing lot")
     body(doc, "The field checklist asks whether monitoring records exist. This section shows how one passing lot is written. Every line below is an example. It is not a lot produced at this plant. It does not validate the plan and it is not a signature. The blank forms in Section 10 are the ones used in production. Section 8.1 is signed in ink only after a real review.")
-    body(doc, "Ejemplo nada más. Estos números no son un lote de la planta. No validan el plan y no sustituyen la firma.")
     h2(doc, "17.1 Example — CCP 1, lot EX-001")
     body(doc, "Probe P-1. Cold spot: back, lower rack. Bag sealed on entry: yes. Thickest piece: yes.")
     table(doc, ["Reading", "Clock time", "Internal °F"], [
