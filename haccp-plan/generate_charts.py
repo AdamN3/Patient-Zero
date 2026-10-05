@@ -127,58 +127,58 @@ def build():
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     title.paragraph_format.space_after = Pt(2)
-    run = title.add_run("CHART 1  ·  Diagrama de flujo")
+    run = title.add_run("CHART 1  ·  Process flow")
     font(run, size=20, bold=True, color=RGBColor(0x1F, 0x4D, 0x36))
 
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
     sub.paragraph_format.space_after = Pt(2)
-    run = sub.add_run("Carne seca lista para comer  ·  Delta, UT")
+    run = sub.add_run("Ready-to-eat beef jerky  ·  Delta, UT")
     font(run, size=12, bold=True)
 
     sub2 = doc.add_paragraph()
     sub2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     sub2.paragraph_format.space_after = Pt(8)
-    run = sub2.add_run("El cliente no la cocina. Lleva res. Se vende sin refrigeración.")
+    run = sub2.add_run("The customer does not cook it. It contains beef. It is sold shelf-stable, without refrigeration.")
     font(run, size=11)
 
     legend = doc.add_paragraph()
     legend.alignment = WD_ALIGN_PARAGRAPH.CENTER
     legend.paragraph_format.space_after = Pt(8)
-    a = legend.add_run("Cuadro claro = paso    ")
+    a = legend.add_run("Light box = process step    ")
     font(a, size=10)
-    b = legend.add_run("Cuadro verde = punto crítico    ")
+    b = legend.add_run("Green box = critical control point    ")
     font(b, size=10, bold=True, color=RGBColor(0x1F, 0x4D, 0x36))
-    c = legend.add_run("Cuadro rojo = el lote no sale")
+    c = legend.add_run("Red box = the lot does not ship")
     font(c, size=10, bold=True, color=RGBColor(0x8C, 0x3D, 0x24))
 
     steps = [
-        ([("1. Recibir la res inspeccionada", 12, True), ("Factura y sello. Medir la temperatura del producto.", 10, False)], CREAM, INK, LINE),
-        ([("2. Recibir sal, especias y bolsas", 12, True), ("La especificación coincide. Sin nitrito.", 10, False)], CREAM, INK, LINE),
+        ([("1. Receive inspected beef", 12, True), ("Invoice and mark of inspection. Measure product temperature.", 10, False)], CREAM, INK, LINE),
+        ([("2. Receive salt, spices, and bags", 12, True), ("Specification matches. No nitrite.", 10, False)], CREAM, INK, LINE),
         ([
-            ("PCC-1  ·  CÁMARA", 11, True),
-            ("Guardar y marinar la res", 12, True),
-            ("Temperatura del producto menor de 41 °F (5 °C)", 10, False),
-            ("Se mide en la carne, no en el aire", 10, False),
+            ("CCP-1  ·  COOLER", 11, True),
+            ("Store and marinate the beef", 12, True),
+            ("Product temperature below 41°F (5°C)", 10, False),
+            ("Probe the meat, not the cooler air", 10, False),
         ], GREEN, WHITE, GREEN),
-        ([("3. Rebanar", 12, True), ("Anotar el grosor en la hoja del lote.", 10, False)], CREAM, INK, LINE),
-        ([("4. Pesar el lote y mezclar", 12, True), ("Res, sal y las especias de la hoja.", 10, False)], CREAM, INK, LINE),
-        ([("5. Tender en una sola capa", 12, True), ("No se apilan. No se secan antes de la cocción.", 10, False)], CREAM, INK, LINE),
+        ([("3. Slice", 12, True), ("Record thickness on the batch sheet.", 10, False)], CREAM, INK, LINE),
+        ([("4. Weigh the batch and mix", 12, True), ("Beef, salt, and the spices on the batch sheet.", 10, False)], CREAM, INK, LINE),
+        ([("5. Single layer on racks", 12, True), ("Do not stack. Do not dry before the cook.", 10, False)], CREAM, INK, LINE),
         ([
-            ("PCC-2  ·  COCCIÓN HÚMEDA, ANTES DE SECAR", 11, True),
-            ("Bulbo seco mayor de 170 °F dentro de 30 minutos", 10, False),
-            ("Bulbo húmedo entre 125 °F y 142 °F", 10, False),
-            ("Interna 158 °F o más, en la tira más gruesa", 10, False),
-            ("De 50 °F a 130 °F: 6 horas o menos", 10, False),
+            ("CCP-2  ·  HUMID COOK, BEFORE DRYING", 11, True),
+            ("Dry bulb above 170°F within 30 minutes", 10, False),
+            ("Wet bulb from 125°F to 142°F", 10, False),
+            ("Internal 158°F or above, thickest piece", 10, False),
+            ("From 50°F to 130°F: 6 hours or less", 10, False),
         ], GREEN, WHITE, GREEN),
         ([
-            ("PCC-3  ·  SECADO", 11, True),
-            ("Actividad de agua menor de 0,88", 10, False),
-            ("Tres piezas. Vale la lectura más alta.", 10, False),
+            ("CCP-3  ·  DRYING", 11, True),
+            ("Water activity below 0.88", 10, False),
+            ("Three pieces. The highest reading is the result.", 10, False),
         ], GREEN, WHITE, GREEN),
-        ([("6. Enfriar en seco", 12, True), ("No se enjuaga ni se humedece.", 10, False)], CREAM, INK, LINE),
-        ([("7. Empacar y etiquetar", 12, True), ("Solo si los tres puntos cumplieron. Bolsa con lote.", 10, False)], CREAM, INK, LINE),
-        ([("8. Revisar los números y firmar", 12, True), ("Cada número se compara con su límite. Luego almacén seco.", 10, False)], CREAM, INK, LINE),
+        ([("6. Cool dry", 12, True), ("Do not rinse or mist.", 10, False)], CREAM, INK, LINE),
+        ([("7. Pack and label", 12, True), ("Only if all three CCPs passed. Bag marked with the lot.", 10, False)], CREAM, INK, LINE),
+        ([("8. Review the numbers and sign", 12, True), ("Each number is compared with its limit. Then dry storage.", 10, False)], CREAM, INK, LINE),
     ]
     for lines, fill, ink, border in steps:
         box(doc, lines, fill, ink, border)
@@ -194,29 +194,29 @@ def build():
     cell.text = ""
     par = cell.paragraphs[0]
     par.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = par.add_run("Si un límite no se cumple, el lote se retiene y no se vende como carne seca lista para comer.")
+    run = par.add_run("If a limit is missed, the lot is held and is not sold as ready-to-eat beef jerky.")
     font(run, size=11, bold=True, color=RGBColor(0x8C, 0x3D, 0x24))
 
     doc.add_page_break()
 
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("CHART 2  ·  Los tres límites")
+    run = title.add_run("CHART 2  ·  The three limits")
     font(run, size=20, bold=True, color=RGBColor(0x1F, 0x4D, 0x36))
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
     sub.paragraph_format.space_after = Pt(10)
-    run = sub.add_run("Lo que se anota en cada lote, antes de vender")
+    run = sub.add_run("What is written for each lot, before it is sold")
     font(run, size=12)
 
-    headers = ["Punto", "Qué se mide", "El lote cumple si"]
+    headers = ["Point", "What is measured", "The lot passes if"]
     rows = [
-        ["PCC-1 Cámara", "Temperatura de la carne", "Menor de 41 °F (5 °C)"],
-        ["PCC-2 Cocción", "Bulbo seco", "Mayor de 170 °F en los primeros 30 minutos"],
-        ["PCC-2 Cocción", "Bulbo húmedo", "Entre 125 °F y 142 °F durante la cocción"],
-        ["PCC-2 Cocción", "Temperatura interna", "158 °F o más. La lectura más baja."],
-        ["PCC-2 Cocción", "Tiempo de subida", "De 50 °F a 130 °F, 6 horas o menos"],
-        ["PCC-3 Secado", "Actividad de agua", "Menor de 0,88. La lectura más alta de tres piezas."],
+        ["CCP-1 Cooler", "Product temperature", "Below 41°F (5°C)"],
+        ["CCP-2 Cook", "Dry bulb", "Above 170°F within the first 30 minutes"],
+        ["CCP-2 Cook", "Wet bulb", "From 125°F to 142°F during the cook"],
+        ["CCP-2 Cook", "Internal temperature", "158°F or above. The lowest reading."],
+        ["CCP-2 Cook", "Come-up time", "From 50°F to 130°F, 6 hours or less"],
+        ["CCP-3 Drying", "Water activity", "Below 0.88. The highest of three pieces."],
     ]
     table = doc.add_table(rows=1 + len(rows), cols=3)
     table.style = "Table Grid"
@@ -240,15 +240,16 @@ def build():
 
     note = doc.add_paragraph()
     note.paragraph_format.space_before = Pt(10)
-    run = note.add_run("Un espacio en blanco o la palabra “sí” no cuenta. Tiene que estar el número medido. Si falta un número, el lote no sale.")
+    run = note.add_run("A blank or the word “yes” does not count. The measured number has to be written. If a number is missing, the lot does not ship.")
     font(run, size=11)
 
     foot = doc.add_paragraph()
     foot.paragraph_format.space_before = Pt(8)
-    run = foot.add_run("Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Límites de la hoja de verificación de jerky y del Appendix A de FSIS, diciembre 2021.")
+    run = foot.add_run("Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Limits from the jerky verification sheet and FSIS Appendix A, December 2021.")
     font(run, size=9, italic=True, color=RGBColor(0x4A, 0x43, 0x3A))
 
     doc.save(OUT)
+    doc.save("/workspace/haccp-plan/CHARTS-Flow-Diagram.docx")
     print(OUT)
 
 

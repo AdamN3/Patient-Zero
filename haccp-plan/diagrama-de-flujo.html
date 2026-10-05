@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Diagrama de flujo — Carne seca lista para comer</title>
+  <title>Process flow — Ready-to-eat beef jerky</title>
   <style>
     :root {
       --ink: #1e1a16;
@@ -133,99 +133,99 @@
 </head>
 <body>
   <header>
-    <h1>Diagrama de flujo</h1>
-    <p class="sub">Carne seca lista para comer · Carne Seca Jesus Canales, LLC · Delta, UT</p>
-    <p class="sub">El cliente no la cocina. El producto lleva res y se vende estable, sin refrigeración.</p>
+    <h1>Process flow</h1>
+    <p class="sub">Ready-to-eat beef jerky · Carne Seca Jesus Canales, LLC · Delta, UT</p>
+    <p class="sub">The customer does not cook it. The product contains beef and is sold shelf-stable, without refrigeration.</p>
     <div class="legend">
-      <div class="key"><i class="swatch step"></i> Paso del proceso</div>
-      <div class="key"><i class="swatch ccp"></i> Punto crítico de control</div>
-      <div class="key"><i class="swatch hold"></i> El lote no sale</div>
+      <div class="key"><i class="swatch step"></i> Process step</div>
+      <div class="key"><i class="swatch ccp"></i> Critical control point</div>
+      <div class="key"><i class="swatch hold"></i> The lot does not ship</div>
     </div>
   </header>
   <main>
     <div class="flow">
       <div class="box">
-        <strong>1. Recibir la res inspeccionada</strong>
-        <span>Factura y sello de inspección. Medir la temperatura del producto.</span>
+        <strong>1. Receive inspected beef</strong>
+        <span>Invoice and mark of inspection. Measure the product temperature.</span>
       </div>
       <div class="arrow"></div>
       <div class="box">
-        <strong>2. Recibir sal, especias y bolsas</strong>
-        <span>La especificación coincide. Sin alérgenos no declarados. Sin nitrito.</span>
+        <strong>2. Receive salt, spices, and bags</strong>
+        <span>The specification matches. No undeclared allergens. No nitrite.</span>
       </div>
       <div class="arrow"></div>
 
       <div class="ccp">
-        <div class="tag">PCC-1 · CÁMARA</div>
-        <strong>Guardar y marinar la res</strong>
+        <div class="tag">CCP-1 · COOLER</div>
+        <strong>Store and marinate the beef</strong>
         <ul>
-          <li>Temperatura del producto menor de 41 °F (5 °C)</li>
-          <li>Se mide en la carne, no en el aire de la cámara</li>
-          <li>En la recepción, en la cámara y al inicio y al final del marinado</li>
+          <li>Product temperature below 41°F (5°C)</li>
+          <li>Probe the meat, not the cooler air</li>
+          <li>At receiving, in the cooler, and at the start and end of marination</li>
         </ul>
       </div>
       <div class="arrow"></div>
 
       <div class="box">
-        <strong>3. Rebanar</strong>
-        <span>Anotar el grosor en la hoja del lote.</span>
+        <strong>3. Slice</strong>
+        <span>Record the thickness on the batch sheet.</span>
       </div>
       <div class="arrow"></div>
       <div class="box">
-        <strong>4. Pesar el lote y mezclar</strong>
-        <span>Res, sal y las especias de la hoja. La etiqueta copia esa hoja.</span>
+        <strong>4. Weigh the batch and mix</strong>
+        <span>Beef, salt, and the spices on the sheet. The label matches that sheet.</span>
       </div>
       <div class="arrow"></div>
       <div class="box">
-        <strong>5. Escurrir y tender en una sola capa</strong>
-        <span>No se apilan las tiras. No se secan antes de la cocción.</span>
+        <strong>5. Drain and place in a single layer</strong>
+        <span>Do not stack the strips. Do not dry them before the cook.</span>
       </div>
       <div class="arrow"></div>
 
       <div class="ccp">
-        <div class="tag">PCC-2 · COCCIÓN HÚMEDA, ANTES DE SECAR</div>
-        <strong>Letalidad por calor</strong>
+        <div class="tag">CCP-2 · HUMID COOK, BEFORE DRYING</div>
+        <strong>Heat lethality</strong>
         <ul>
-          <li>Bulbo seco mayor de 170 °F (77 °C) dentro de 30 minutos</li>
-          <li>Bulbo húmedo entre 125 °F y 142 °F (52 °C a 61 °C)</li>
-          <li>Interna de la tira más gruesa, en el punto más frío: 158 °F (70 °C) o más</li>
-          <li>Entre 50 °F y 130 °F: 6 horas o menos</li>
-          <li>No se promedian las lecturas. Vale la más baja.</li>
+          <li>Dry bulb above 170°F (77°C) within 30 minutes</li>
+          <li>Wet bulb from 125°F to 142°F (52°C to 61°C)</li>
+          <li>Internal temperature of the thickest piece, in the coldest spot: 158°F (70°C) or above</li>
+          <li>From 50°F to 130°F: 6 hours or less</li>
+          <li>Readings are not averaged. The lowest reading is the result.</li>
         </ul>
       </div>
       <div class="arrow"></div>
 
       <div class="ccp">
-        <div class="tag">PCC-3 · SECADO</div>
-        <strong>Actividad de agua</strong>
+        <div class="tag">CCP-3 · DRYING</div>
+        <strong>Water activity</strong>
         <ul>
-          <li>Menor de 0,88 en la carne ya seca, antes de empacar</li>
-          <li>Tres piezas. Vale la lectura más alta.</li>
-          <li>El pH no es límite. La relación humedad/proteína no es límite.</li>
+          <li>Below 0.88 on the finished jerky, before packing</li>
+          <li>Three pieces. The highest reading is the result.</li>
+          <li>pH is not a limit. Moisture-to-protein ratio is not a limit.</li>
         </ul>
       </div>
       <div class="arrow"></div>
 
       <div class="box">
-        <strong>6. Enfriar en área de producto listo</strong>
-        <span>En seco. No se enjuaga ni se humedece.</span>
+        <strong>6. Cool in the ready-to-eat area</strong>
+        <span>Keep it dry. Do not rinse or mist.</span>
       </div>
       <div class="arrow"></div>
       <div class="box">
-        <strong>7. Empacar y etiquetar</strong>
-        <span>Solo si los tres puntos críticos cumplieron. Bolsa seca, con código de lote.</span>
+        <strong>7. Pack and label</strong>
+        <span>Only if all three critical control points passed. Dry bag, with the lot code.</span>
       </div>
       <div class="arrow"></div>
       <div class="box">
-        <strong>8. Revisar los registros y firmar</strong>
-        <span>Alguien compara cada número con el límite. Luego almacén seco y distribución.</span>
+        <strong>8. Review the records and sign</strong>
+        <span>A reviewer compares each number with its limit. Then dry storage and distribution.</span>
       </div>
       <div class="arrow"></div>
-      <div class="hold">Si un límite no se cumple, el lote se retiene y no se vende como carne seca lista para comer.</div>
+      <div class="hold">If a limit is missed, the lot is held and is not sold as ready-to-eat beef jerky.</div>
     </div>
   </main>
   <footer>
-    Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Límites tomados de la hoja de verificación de jerky y del Appendix A de FSIS (diciembre 2021) citado en esa hoja.
+    Carne Seca Jesus Canales, LLC · 411 E Main St, Delta, UT 84624 · Limits taken from the jerky verification sheet and from FSIS Appendix A (December 2021) cited on that sheet.
   </footer>
 </body>
 </html>
