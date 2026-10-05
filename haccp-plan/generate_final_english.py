@@ -540,6 +540,102 @@ Carne Seca Jesus Canales, LLC
     (OUT / "Cover-Note-to-Reviewer.txt").write_text(text)
 
 
+def _letter_pages():
+    import fitz
+
+    green = (31 / 255, 77 / 255, 54 / 255)
+    ink = (30 / 255, 26 / 255, 22 / 255)
+    muted = (74 / 255, 67 / 255, 58 / 255)
+    doc = fitz.open()
+
+    cover = doc.new_page(width=612, height=792)
+    cover.insert_font(fontname="B", fontfile=FONT_B)
+    cover.insert_font(fontname="R", fontfile=FONT_R)
+    cover.draw_rect(fitz.Rect(0, 0, 612, 10), color=green, fill=green)
+    cover.insert_textbox(fitz.Rect(54, 48, 558, 80), "PRINT THIS PACKET", fontname="B", fontsize=11, color=green)
+    cover.insert_textbox(
+        fitz.Rect(54, 78, 558, 160),
+        "HACCP plan and scientific support\nReady-to-eat beef jerky",
+        fontname="B",
+        fontsize=22,
+        color=ink,
+    )
+    cover.insert_textbox(
+        fitz.Rect(54, 168, 558, 230),
+        "Carne Seca Jesus Canales, LLC\n411 E Main St, Delta, UT 84624\n(435) 406-1178",
+        fontname="R",
+        fontsize=12,
+        color=ink,
+    )
+    cover.draw_rect(fitz.Rect(54, 248, 558, 249), color=green, fill=green)
+    order = (
+        "What is in this file, in print order\n\n"
+        "1. This cover.\n"
+        "2. Note to the reviewer.\n"
+        "3. HACCP plan, with the process chart, the limits chart, and the blank logs.\n"
+        "4. Scientific support for each critical limit.\n\n"
+        "Print every page on letter paper. Sign in ink before the packet is sent.\n\n"
+        "Sign the HACCP plan, section 8.1, Jesús Canales.\n"
+        "Sign the scientific support, section 6, Jesús Canales.\n"
+        "Leave the validation date blank until lots from this gas oven, this load, "
+        "and this thickness have been reviewed."
+    )
+    cover.insert_textbox(fitz.Rect(54, 268, 558, 560), order, fontname="R", fontsize=12, color=ink, align=fitz.TEXT_ALIGN_LEFT)
+    cover.insert_textbox(
+        fitz.Rect(54, 700, 558, 760),
+        "Gas oven. Cook in a sealed bag, then dehydrate.\nA laboratory test is not the release step.",
+        fontname="R",
+        fontsize=11,
+        color=muted,
+    )
+
+    note = doc.new_page(width=612, height=792)
+    note.insert_font(fontname="B", fontfile=FONT_B)
+    note.insert_font(fontname="R", fontfile=FONT_R)
+    note.draw_rect(fitz.Rect(0, 0, 612, 10), color=green, fill=green)
+    note.insert_textbox(fitz.Rect(54, 46, 558, 90), "Note to the reviewer", fontname="B", fontsize=18, color=ink)
+    body = (
+        "The May HACCP plan for Carne Seca Jesus Canales, LLC was returned with a request "
+        "for the scientific support for the critical control points. The support had to identify "
+        "the criteria used to set each critical limit for a safe ready-to-eat product.\n\n"
+        "This packet contains the HACCP plan and the scientific support.\n\n"
+        "The product is ready-to-eat beef jerky made in this plant’s gas oven. The oven vent "
+        "stays open, so the sealed-oven humidity option in Appendix A is not used. Lethality is "
+        "a cook in a sealed moisture-impermeable bag to an internal temperature of 160°F or above, "
+        "with the internal temperature between 50°F and 130°F for 6 hours or less. Dehydration "
+        "starts after that cook. The dry bulb is 170°F or above, and the finished water activity "
+        "is 0.85 or less, using the highest of at least six pieces.\n\n"
+        "The page for each number is in the scientific-support document. A finished-product "
+        "laboratory test is not the release step. The in-plant validation date is blank until "
+        "logs from this oven, this load, and this thickness have been reviewed and the plan is signed.\n\n"
+        "Jesús Canales\n"
+        "Carne Seca Jesus Canales, LLC\n"
+        "411 E Main St, Delta, UT 84624\n"
+        "(435) 406-1178"
+    )
+    spare = note.insert_textbox(fitz.Rect(54, 110, 558, 740), body, fontname="R", fontsize=12, color=ink)
+    if spare < 0:
+        raise SystemExit("reviewer note does not fit on one page")
+    return doc
+
+
+def assemble_print_packet():
+    import fitz
+
+    plan = OUT / "HACCP-Plan-Beef-Jerky-Final.pdf"
+    support = OUT / "Scientific-Support-CCPs-Final.pdf"
+    if not plan.exists() or not support.exists():
+        raise SystemExit("plan and support PDFs must exist before the print packet is built")
+    packet = _letter_pages()
+    packet.insert_pdf(fitz.open(plan))
+    packet.insert_pdf(fitz.open(support))
+    dest = OUT / "HACCP-PARA-IMPRIMIR.pdf"
+    packet.save(dest, deflate=True, garbage=4)
+    # Same pages as the file already cited for sending.
+    packet.save(OUT / "HACCP-FINAL-ENGLISH.pdf", deflate=True, garbage=4)
+    print("print packet", dest, "pages", packet.page_count)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     flow = OUT / "CHART-Process-Flow.png"
@@ -553,4 +649,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "packet":
+        assemble_print_packet()
+    else:
+        main()
