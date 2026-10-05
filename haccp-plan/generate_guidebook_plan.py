@@ -230,6 +230,33 @@ def build():
     line(doc, "Name and date:")
     body(doc, "There is no metal-detector step in this flow. There is no brine step, no fermentation step, and no ingredient added after CCP 1.")
 
+    h1(doc, "1.6 Label — FSIS Guideline for Label Approval")
+    body(doc, "The current guideline is FSIS-GD-2025-0006, December 2025. It replaces the earlier FSIS Guideline for Label Approval. It tells the plant when a label must be sent to the Labeling and Program Delivery Staff (LPDS) before it is used. The labeling rules themselves are in 9 CFR parts 317, 319, and 412. A product without an acceptable label is not sold.")
+    body(doc, "This jerky’s basic label has no special claim. Under 9 CFR 412.2 that label is generically approved. It is not sent to LPDS before use, as long as every required feature is present and true. The inspector can still check it. LPDS sketch approval, 9 CFR 412.1(c), is required only for a religious-exempt label, a label with a special statement or claim, or a temporary approval.")
+    table(
+        doc,
+        ["On this bag", "Rule"],
+        [
+            ["Product name", "Beef Jerky. English is required. “Carne seca” may be added and does not replace “Beef Jerky.”"],
+            ["Ingredients", "In descending order by weight, for that lot: beef, salt, and only the spices that were weighed. The label matches the batch sheet. 9 CFR 317.2."],
+            ["Net weight", "The weight of the jerky in that bag."],
+            ["Name and place of business", "Carne Seca Jesus Canales, LLC, 411 E Main St, Delta, UT 84624."],
+            ["Inspection legend and establishment number", "Applied when the plant is under federal inspection. The number is written on the label when it is issued."],
+            ["Lot code", "On the bag, so the HACCP records can be found. 9 CFR 417.5."],
+            ["Nutrition Facts", "Required unless this plant meets the small-business exemption in 9 CFR 317.400. The exemption is checked before the first sale. It is not assumed."],
+            ["Safe-handling label for raw meat", "Not used. This jerky is ready to eat. That label is for raw or partially cooked product."],
+            ["Keep refrigerated", "Not used. The finished water activity is 0.85 or less, so the jerky is shelf-stable. The 2014 jerky guideline says “Refrigerate After Opening” when a vacuum bag is above 0.85 and at or below 0.91. This plan does not use that range."],
+        ],
+        size=8,
+    )
+    body(doc, "These words are not printed on this label. Each one is a special statement or a negative claim under the guideline, and each one needs its own support or an LPDS review. Adding one of them changes the approval.")
+    bullet(doc, "Natural, organic, certified gluten-free, no antibiotics, grass-fed.")
+    bullet(doc, "Product of USA, Made in the USA, or a U.S. flag. Those are voluntary origin claims under 9 CFR 412.3. The December 2025 guideline says the support for that claim has to be on file. This plan does not make the claim.")
+    bullet(doc, "Uncured. Jerky is allowed without nitrite, so the word is not required. On a product people expect to be cured, “uncured” is tied to “Not preserved — keep refrigerated,” which would contradict this shelf-stable jerky.")
+    bullet(doc, "No preservatives, or no nitrite, until the ingredients statement and the guideline’s negative-claim examples have been checked for that exact wording.")
+    body(doc, "The name “Beef Jerky” also has a standard of identity. The moisture-to-protein ratio is 0.75:1 or less. That ratio is checked on validation lots for the name on the bag. It is not a critical limit. Water activity remains the safety limit.")
+    body(doc, "Before a lot ships, the packer checks the bag against the batch sheet: the name is Beef Jerky, the ingredients match the weights, the net weight is on the bag, the address is on the bag, and none of the claims in the list above were added. A bag that fails that check is not sold.")
+
     h1(doc, "2. What was changed from the FSIS jerky model")
     table(
         doc,
@@ -413,7 +440,7 @@ def build():
 
     p(
         doc,
-        "Support kept with this plan: 9 CFR Part 417; the seven FSIS guidelines named in the opening table; the jerky field verification checklist; Principles of Preservation of Shelf-Stable Dried Meat Products.",
+        "Support kept with this plan: 9 CFR Parts 317, 412, and 417; FSIS Guideline for Label Approval, FSIS-GD-2025-0006; the seven FSIS guidelines named in the opening table; the jerky field verification checklist; Principles of Preservation of Shelf-Stable Dried Meat Products.",
         size=10,
         italic=True,
         before=8,
