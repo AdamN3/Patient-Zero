@@ -337,7 +337,7 @@ def build_plan(flow_png, limits_png, logo_png):
         ["9 CCP 2 Drying", "Biological: C. perfringens and C. botulinum while the meat is still moist; S. aureus toxin; L. monocytogenes in storage", "Yes", "Drying at 170°F or above, then water activity 0.85 or less."],
         ["10 Handle", "Biological: L. monocytogenes after the cook", "No", "Sanitation SOP in the ready-to-eat area. Growth in storage is prevented by CCP 2, because 0.85 is below the 0.92 growth minimum."],
         ["11 Pack", "Chemical: undeclared soy or wheat", "No", "Every bag is checked for Contains: Soy, Wheat before the lot ships."],
-        ["12 Storage", "Biological: growth", "No", "Water activity is already 0.85 or less."],
+        ["12 Storage", "Biological: pathogen growth; mold", "No", "Pathogen growth is already prevented by CCP 2. Aspergillus flavus can still grow at a water activity of 0.80, so 0.85 does not stop mold. A bag with visible mold is held and does not ship."],
         ["13 Returns", "Biological: unknown holding", "No", "Opened bags are not resold."],
     ], size=8)
 
@@ -352,6 +352,7 @@ def build_plan(flow_png, limits_png, logo_png):
         ["The moisture-impermeable bag stays sealed until the internal temperature is 160°F or above.", "Appendix A, page 31. Cooking in a sealed moisture-impermeable bag keeps moisture around the product, so relative humidity is not monitored as its own limit. Page 29: this gas oven cannot use the sealed-oven method.", "The seal is checked when the bag enters the oven and again at the 160°F reading. The time the bag is opened is written. It is not opened before that reading."],
     ], size=8)
     body(doc, "Who monitors: the person running the oven, named on the log.")
+    body(doc, "The preservation chapter, page 166, states that drying, or a lower water activity, can increase heat resistance. The cook in this plan happens while the meat is still moist, inside the sealed bag. Dehydration starts only after the internal temperature is 160°F or above.")
     body(doc, "If any CCP 1 limit is missed: the lot is stopped and Jesús Canales is told. The lot is held. It is not opened for dehydration and it does not ship. The cause is written. The oven or the bag practice is corrected before the next lot. Product that missed the cook is not sold as ready-to-eat jerky. A laboratory test is not the release step.")
     body(doc, "The cook may continue inside the same sealed bag only when the piece can still reach 160°F and the time between 50°F and 130°F is still 6 hours or less. Appendix A states that a come-up clock does not start over when the first cook did not reach a lethal temperature. If that time is already over 6 hours, the lot is not released under this plan.")
 
@@ -371,6 +372,7 @@ def build_plan(flow_png, limits_png, logo_png):
     bullet(doc, "Employee health. The establishment uses the FDA Employee Health Policy Tool (2022 Food Code, part 2-201; tool dated August 23, 2023) for restriction and exclusion of ill employees. A person who is ill does not handle meat or jerky. Hands are washed. Bare hands do not touch finished jerky. This tool does not set a critical limit.")
     bullet(doc, "Sanitation SOP, 9 CFR 416. After the bag is opened, jerky is handled only in the clean area. The sanitation SOP names Alternative 2 of 9 CFR 430.4: the finished water activity of 0.85 or less is the antimicrobial process that prevents growth of Listeria monocytogenes, together with sanitation in the ready-to-eat area. The food-contact-surface testing frequency required for that alternative is written in the sanitation SOP before a lot ships.")
     bullet(doc, "Allergens. The batch sheet lists soy and wheat. The pack-out check confirms the bag says Contains: Soy, Wheat.")
+    bullet(doc, "Closed bag and mold. The preservation chapter, pages 162–163, says mold can grow on dried meat that is not in an anaerobic package, and that mold can raise the pH. The growth table gives Aspergillus flavus a minimum water activity of 0.80, so 0.85 does not stop that mold. This formula has no anti-mold preservative, and this plan does not claim a vacuum pack or a modified atmosphere. The bag is heat-sealed the day CCP 2 passes, stored cool and dry, and kept closed until the buyer opens it. A bag with visible mold does not ship. Opened bags are not resold. A later change to vacuum, modified atmosphere, or an anti-mold ingredient is a reassessment.")
     bullet(doc, "Thermometers and the water-activity meter are checked by the method in Section 9.5. An instrument that fails calibration is removed, and the lots checked with it since the last good calibration are reviewed.")
     body(doc, "The curing-and-smoking field checklist is not a prerequisite for this jerky and is not support for these limits. This product is not brine-cured, is not dry-cured, and is not hung to dry before a smoke schedule. That checklist was read so the wrong process would not be copied into this plan.")
 
@@ -623,6 +625,7 @@ def build_support():
     bullet(doc, "Appendix A, page 29: if an oven has an opening that cannot be closed, the sealed-oven method is not used. This is a gas oven. The burner vent stays open. The plan therefore does not use Humidity Option 2.")
     bullet(doc, "Appendix A, page 27: a wet-bulb temperature of 125–130°F and 27–32 percent relative humidity for one hour, taken from the jerky guideline, is not adequate on its own to support the Appendix A humidity options. This plan does not use that pair as the humidity limit. The jerky checklist prints a wet bulb of 125–142°F next to its heat-lethality line. That line is not a critical limit in this plan, for the reason on page 27.")
     bullet(doc, "The preservation chapter, Jerky Products section, page 168, says the jerky guidelines call for a humidity step at the beginning of the process. The sealed-bag cook is that step. Dehydration follows it.")
+    bullet(doc, "The same chapter, page 166, states that drying or a lower water activity can increase heat resistance, and that the heating medium, including water activity, changes that resistance. Cooking while the strip is still moist is the control for that increase. The surface is not dried first.")
 
     h1(doc, "3. CCP 2 — dehydration")
     h2(doc, "3.1 Dry bulb 170°F or above")
@@ -637,6 +640,16 @@ def build_support():
     bullet(doc, "The same chapter, page 160: dried hams, coppa, and beef jerky generally have water activity less than 0.88. The jerky field checklist, drying row, prints water activity below 0.88. The limit in this plan is 0.85 or less, which meets the checklist.")
     bullet(doc, "The same chapter, Jerky Products section, page 168: safety and shelf stability of jerky are judged by water activity, not by the moisture-to-protein ratio, and the older practice of relying on a moisture-to-protein ratio of 0.75 or below is not the safety indicator. Page 160 states that moisture-to-protein ratios are labeling standards and are not necessarily indicative of microbial safety. This plan checks 0.75:1 on validation lots for the product name. It is not a critical limit.")
     bullet(doc, "The chapter also states that if pathogens are still viable, the product is adulterated. Water activity stops growth. It is not the kill step. The kill step is CCP 1.")
+    bullet(doc, "The growth table lists Staphylococcus aureus at 0.90 when oxygen is absent and at 0.85 when oxygen is present. This plan does not claim an oxygen-free package, so the aerobic number is the one used. The same table lists non-proteolytic Clostridium botulinum at 0.96. Finished jerky at 0.85 or less is below that minimum as well.")
+
+    h2(doc, "3.3 How this chapter applies to this jerky")
+    body(doc, "Principles of Preservation of Shelf-Stable Dried Meat Products, October 31, 2011, is support for the drying limit and for the decision not to copy other dried-meat processes into this plan. The parts that apply, and the parts that do not, are named here.")
+    bullet(doc, "Two preservation types from page 157 apply. Heat inactivates pathogens: CCP 1. A low water activity then slows or stops growth: CCP 2. Page 157 says water activity is the most important single factor for shelf stability across dried meats. Page 156 says shelf life is set for acceptable quality, because safety is addressed in the process. The blank shelf-life line in the HACCP plan is that quality decision. It is not a critical limit. The 70°F line on the bag is a storage instruction, not the safety limit.")
+    bullet(doc, "Page 166 requires a validated 5-log reduction of E. coli O157:H7 in products that contain beef, and says that reduction is, for the most part, achieved by heating. Page 166 also says a published validation may be used when it is equal to or less severe than the process being validated. The published lethality support for this jerky is Appendix A, Table 2, not the summer-sausage, pepperoni, or country-ham examples later in the chapter. Those examples are different products.")
+    bullet(doc, "Page 166 says pathogenic sporeformers may need to be addressed. While the strips are still moist, the dry bulb of 170°F or above is that address. The same page says that once water activity is low, pathogenic sporeformers should not be a concern in the finished product. Finished water activity of 0.85 or less is below the table minima of 0.93 for Clostridium perfringens and proteolytic Clostridium botulinum.")
+    bullet(doc, "Page 158 says that, for many shelf-stable dried meats, acidity, low redox potential, preservatives, and competitive flora are the main hurdles, because those products are often not pasteurized. This jerky is heat-treated. Those four hurdles are not controls in this formula. Vinegar in the marinade is not measured as a pH limit and does not replace the cook or the water-activity limit.")
+    bullet(doc, "Not used, because this is not that process. Degree-hours to pH 5.3, pages 163–164, apply to fermented sausage with a starter culture. This jerky has no starter culture and no fermentation step. The salting step for dry-cured whole muscle, pages 164–165, is not this process. Salt in the marinade is for flavor. Brine strength is not a critical limit. Nitrate, nitrite, and cure accelerators, pages 160–161, are not in the formula. The pH minima on page 158 are not a critical limit. This plan does not acidify the meat to a target pH.")
+    bullet(doc, "Mold is not stopped by a water activity of 0.85. The growth table gives Aspergillus flavus a minimum of 0.80. Pages 162–163 say mold can grow on dried meat that is not in an anaerobic package, and that mold can raise the pH. This plan does not add a mold inhibitor and does not claim vacuum or modified atmosphere. The HACCP plan controls that as a prerequisite: the bag is heat-sealed, stored cool and dry, and a bag with visible mold does not ship. It is not a third critical control point.")
 
     h1(doc, "4. Limits that are not critical control points")
     table(doc, ["Item", "Number used", "Why it is not a CCP"], [
@@ -644,6 +657,9 @@ def build_support():
         ["Employee health", "Restriction and exclusion under the 2022 FDA Food Code, part 2-201, using the Employee Health Policy Tool dated August 23, 2023.", "People who are ill do not handle the product. The tool does not identify a process critical limit."],
         ["Allergens", "Contains: Soy, Wheat, on every bag. Formula in the plan, Section 3.1.", "Controlled by the batch sheet and the pack-out check."],
         ["Moisture-to-protein ratio", "0.75:1 or less, on validation lots.", "Standard of identity for the name jerky. Preservation chapter, page 160 and page 168. Not a safety limit."],
+        ["pH, fermentation, degree-hours", "Not used.", "Preservation chapter, pages 158 and 163–164. This jerky is not fermented and is not acidified to a target pH."],
+        ["Salt and brine strength", "Not a safety limit.", "Preservation chapter, pages 160 and 164–165. Those controls are for cured and dry-cured products. Salt here is for flavor."],
+        ["Mold", "No visible mold. The bag stays sealed.", "Preservation chapter, pages 162–163, and Aspergillus flavus at 0.80. Prerequisite. Not a critical control point."],
         ["Curing and smoking checklist", "Not used.", "That checklist is for brine, dry cure, a salinometer, and hanging meat before smoke. This jerky is not that process. Using it would attach the wrong criteria to these critical limits."],
     ], size=8)
 
@@ -669,7 +685,7 @@ Two documents are attached.
 
 The product is ready-to-eat beef jerky made in this plant’s gas oven. The oven vent stays open, so the sealed-oven humidity option in Appendix A is not used. Lethality is a cook in a sealed moisture-impermeable bag to an internal temperature of 160°F or above, with the internal temperature between 50°F and 130°F for 6 hours or less. Dehydration starts after that cook. The dry bulb is 170°F or above, and the finished water activity is 0.85 or less, using the highest of at least six pieces.
 
-The page for each number is in the scientific-support document. A finished-product laboratory test is not the release step. The in-plant validation date is blank until logs from this oven, this load, and this thickness have been reviewed and the plan is signed.
+The page for each number is in the scientific-support document. That document also states which parts of Principles of Preservation of Shelf-Stable Dried Meat Products apply to this jerky and which do not. Fermentation, degree-hours, dry-cure salting, and the sausage and country-ham examples in that chapter are not this process. A finished-product laboratory test is not the release step. The in-plant validation date is blank until logs from this oven, this load, and this thickness have been reviewed and the plan is signed.
 
 Jesús Canales
 Carne Seca Jesus Canales, LLC
@@ -747,7 +763,10 @@ def _letter_pages():
         "with the internal temperature between 50°F and 130°F for 6 hours or less. Dehydration "
         "starts after that cook. The dry bulb is 170°F or above, and the finished water activity "
         "is 0.85 or less, using the highest of at least six pieces.\n\n"
-        "The page for each number is in the scientific-support document. A finished-product "
+        "The page for each number is in the scientific-support document. That document states "
+        "which parts of Principles of Preservation of Shelf-Stable Dried Meat Products apply "
+        "to this jerky. Fermentation, degree-hours, dry-cure salting, and the sausage and "
+        "country-ham examples in that chapter are not this process. A finished-product "
         "laboratory test is not the release step. The in-plant validation date is blank until "
         "logs from this oven, this load, and this thickness have been reviewed and the plan is signed.\n\n"
         "Jesús Canales\n"
